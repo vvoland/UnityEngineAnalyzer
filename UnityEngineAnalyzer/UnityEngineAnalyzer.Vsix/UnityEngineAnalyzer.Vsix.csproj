@@ -57,12 +57,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UnityEngineAnalyzer\UnityEngineAnalyzer.csproj">
-      <Project>{BFB2BB34-FED8-48CC-9B83-A6E38BA5666C}</Project>
-      <Name>UnityEngineAnalyzer</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="LICENSE.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
