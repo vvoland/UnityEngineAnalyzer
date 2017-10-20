@@ -1,9 +1,10 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using Linty.Analyzers;
+using Linty.Analyzers.FindMethodsInUpdate;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
 using NUnit.Framework;
 using RoslynNUnitLight;
-using UnityEngineAnalyzer.FindMethodsInUpdate;
 
 
 //using Microsoft.CodeAnalysis.Workspaces;

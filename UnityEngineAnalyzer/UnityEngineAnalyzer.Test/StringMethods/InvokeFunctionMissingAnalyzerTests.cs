@@ -1,9 +1,10 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using Linty.Analyzers;
+using Linty.Analyzers.StringMethods;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
 using NUnit.Framework;
 using RoslynNUnitLight;
-using UnityEngineAnalyzer.StringMethods;
 
 namespace UnityEngineAnalyzer.Test.StringMethods
 {

@@ -182,6 +182,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UnityEngineAnalyzer\Linty.Analyzers\Linty.Analyzers.csproj">
+      <Project>{d43efdfb-bb7f-4a9b-9a60-c79b9404342a}</Project>
+      <Name>Linty.Analyzers</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.MSBuild;
-using UnityEngineAnalyzer.ForEachInUpdate;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using Linty.Analyzers.ForEachInUpdate;
 
 namespace UnityEngineAnalyzer.CLI
 {

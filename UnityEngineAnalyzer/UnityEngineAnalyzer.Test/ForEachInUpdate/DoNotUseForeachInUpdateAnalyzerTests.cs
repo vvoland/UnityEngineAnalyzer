@@ -1,13 +1,11 @@
 ﻿using System.Diagnostics;
+using Linty.Analyzers;
+using Linty.Analyzers.ForEachInUpdate;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
 using NUnit.Framework;
 using RoslynNUnitLight;
-using UnityEngineAnalyzer.FindMethodsInUpdate;
-using UnityEngineAnalyzer.ForEachInUpdate;
-
-//using Microsoft.CodeAnalysis.Workspaces;
 
 namespace UnityEngineAnalyzer.Test.ForEachInUpdate
 {

@@ -1,9 +1,10 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using Linty.Analyzers;
+using Linty.Analyzers.Material;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
 using NUnit.Framework;
 using RoslynNUnitLight;
-using UnityEngineAnalyzer.Material;
 
 namespace UnityEngineAnalyzer.Test.Material
 {

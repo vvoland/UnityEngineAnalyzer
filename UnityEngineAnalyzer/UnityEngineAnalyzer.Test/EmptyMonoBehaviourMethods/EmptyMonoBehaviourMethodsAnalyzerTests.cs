@@ -3,7 +3,8 @@ using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
 using NUnit.Framework;
 using RoslynNUnitLight;
-using UnityEngineAnalyzer.EmptyMonoBehaviourMethods;
+using Linty.Analyzers;
+using Linty.Analyzers.EmptyMonoBehaviourMethods;
 
 namespace UnityEngineAnalyzer.Test.EmptyMonoBehaviourMethods
 {
