@@ -77,10 +77,11 @@ namespace Linty.Analyzers.EmptyMonoBehaviourMethods
         public override void Initialize(AnalysisContext context)
         {
             context.RegisterSymbolAction(AnalyzeSymbol, SymbolKind.Method);
+
             //NOTE: It might be more officient to find classes and then determine if they are a MonoBehaviour rather than look at every method 
         }
 
-        private static async void AnalyzeSymbol(SymbolAnalysisContext context)
+        private static void AnalyzeSymbol(SymbolAnalysisContext context)
         {
             // retrieve method symbol
             var methodSymbol = context.Symbol as IMethodSymbol;
@@ -90,7 +91,7 @@ namespace Linty.Analyzers.EmptyMonoBehaviourMethods
             if (methodSymbol.DeclaringSyntaxReferences.Length != 1) { return; }
 
             // retrieve the method syntax from the method symbol
-            var methodSyntax = await methodSymbol.DeclaringSyntaxReferences[0].GetSyntaxAsync() as MethodDeclarationSyntax;
+            var methodSyntax = methodSymbol.DeclaringSyntaxReferences[0].GetSyntaxAsync().Result as MethodDeclarationSyntax;
             // from the method syntax, check if there is a body and if there are statements in it
             if (methodSyntax?.Body?.Statements.Any() ?? true) { return; }
 
