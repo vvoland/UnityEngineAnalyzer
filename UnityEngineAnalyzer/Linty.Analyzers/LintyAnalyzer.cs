@@ -11,7 +11,9 @@ namespace Linty.Analyzers
         private Action<MonoBehaviourInfo> _forEachMonoBehaviourCallback;
         private SyntaxNodeAnalysisContext? _context;
 
-        public sealed override void Initialize(AnalysisContext context)
+        public abstract DiagnosticDescriptor GetDiagnosticDescriptor();
+
+        public override void Initialize(AnalysisContext context)
         {
             if (_forEachMonoBehaviourCallback != null)
             {
@@ -31,13 +33,18 @@ namespace Linty.Analyzers
             }
         }
 
-        public void ReportDiagnostic(Diagnostic diagnostic)
+        internal void ReportDiagnostic(Location location, string className, string methodName)
         {
-            _context?.ReportDiagnostic(diagnostic);
+            if (_context != null)
+            {
+                var diagnostic = Diagnostic.Create(this.GetDiagnosticDescriptor(), location, className, methodName);
+                _context?.ReportDiagnostic(diagnostic);
+            }
         }
 
 
-        public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; }
+
+        public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(this.GetDiagnosticDescriptor());
 
         /// <summary>
         /// Allows Analyis of a Unity MonoBehaviour

@@ -11,7 +11,7 @@ namespace Linty.Analyzers.EmptyMonoBehaviourMethods
     {
         public EmptyMonoBehaviourMethodsAnalyzer()
         {
-            base.ForEachMonoBehaviour(AnalyzeMonoBehaviour);
+            this.ForEachMonoBehaviour(AnalyzeMonoBehaviour);
         }
 
         private void AnalyzeMonoBehaviour(MonoBehaviourInfo monoBehaviour)
@@ -23,16 +23,17 @@ namespace Linty.Analyzers.EmptyMonoBehaviourMethods
                 {
                     var methodName = m.Identifier.ValueText;
 
-                    //TODO: Move some of this logic to the LintyAnalyzer
-                    var diagnostic = Diagnostic.Create(DiagnosticDescriptors.EmptyMonoBehaviourMethod, m.GetLocation(), monoBehaviour.ClassName, methodName);
-
-                    this.ReportDiagnostic(diagnostic);
-                    
+                    base.ReportDiagnostic(m.GetLocation(), monoBehaviour.ClassName, methodName);                    
                 }
             });
         }
 
-        public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(DiagnosticDescriptors.EmptyMonoBehaviourMethod);
+        public override DiagnosticDescriptor GetDiagnosticDescriptor()
+        {
+            return DiagnosticDescriptors.EmptyMonoBehaviourMethod;
+        }
+
+       // public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(DiagnosticDescriptors.EmptyMonoBehaviourMethod);
 
     }
 }

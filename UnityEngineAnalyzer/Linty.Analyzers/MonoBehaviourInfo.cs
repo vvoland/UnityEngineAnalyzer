@@ -7,6 +7,9 @@ using Microsoft.CodeAnalysis.Diagnostics;
 
 namespace Linty.Analyzers
 {
+    /// <summary>
+    /// This class represents a MonoBehaviour class in the Unity Project
+    /// </summary>
     class MonoBehaviourInfo
     {
 
@@ -139,6 +142,7 @@ namespace Linty.Analyzers
 
             var baseClass = classDeclaration.BaseType;
 
+            //TODO: Need to take into consideration if the developer extends MonoBehaviour
             if (baseClass.ContainingNamespace.Name.Equals("UnityEngine") && baseClass.Name.Equals("MonoBehaviour"))
             {
                 return true;
