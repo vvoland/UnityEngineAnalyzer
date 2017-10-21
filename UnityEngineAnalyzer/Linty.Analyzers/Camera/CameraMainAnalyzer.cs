@@ -49,7 +49,7 @@ namespace Linty.Analyzers.Camera
                     continue;
                 }
 
-                var containingClass = symbolInfo.Symbol.ContainingType;
+                var containingClass = symbolInfo.Symbol?.ContainingType;
 
                 if (containingClass != null && containingClass.ContainingNamespace.Name.Equals("UnityEngine") && containingClass.Name.Equals("Camera"))
                 {
