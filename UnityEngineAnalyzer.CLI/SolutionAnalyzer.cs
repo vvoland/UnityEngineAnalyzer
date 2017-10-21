@@ -66,7 +66,7 @@ namespace UnityEngineAnalyzer.CLI
 
             foreach (var type in allTypes)
             {
-                if (type.BaseType == typeof(DiagnosticAnalyzer))
+                if (type.IsSubclassOf(typeof(DiagnosticAnalyzer))  && !type.IsAbstract)
                 {
                     if (IsAnalyzerAllowedInConfiguration(analyzerDictionary, type.Name))
                     {

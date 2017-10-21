@@ -19,6 +19,67 @@ namespace Linty.Analyzers
             "FixedUpdate",
             "LateUpdate");
 
+        private static readonly ImmutableHashSet<string> MonoBehaviourMethods = ImmutableHashSet.Create(
+            "Awake",
+            "OnAnimatorIK",
+            "OnAnimatorMove",
+            "OnApplicationFocus",
+            "OnApplicationPause",
+            "OnApplicationQuit",
+            "OnAudioFilterRead",
+            "OnBecameInvisible",
+            "OnBecameVisible",
+            "OnCollisionEnter",
+            "OnCollisionEnter2D",
+            "OnCollisionExit",
+            "OnCollisionExit2D",
+            "OnCollisionStay",
+            "OnCollisionStay2D",
+            "OnConnectedToServer",
+            "OnControllerColliderHit",
+            "OnDestroy",
+            "OnDisable",
+            "OnDisconnectedFromServer",
+            "OnDrawGizmos",
+            "OnDrawGizmosSelected",
+            "OnEnable",
+            "OnFailedToConnect",
+            "OnFailedToConnectToMasterServer",
+            "OnJointBreak",
+            "OnLevelWasLoaded",
+            "OnMasterServerEvent",
+            "OnMouseDown",
+            "OnMouseDrag",
+            "OnMouseEnter",
+            "OnMouseExit",
+            "OnMouseOver",
+            "OnMouseUp",
+            "OnMouseUpAsButton",
+            "OnNetworkInstantiate",
+            "OnParticleCollision",
+            "OnPlayerConnected",
+            "OnPlayerDisconnected",
+            "OnPostRender",
+            "OnPreCull",
+            "OnPreRender",
+            "OnRenderImage",
+            "OnRenderObject",
+            "OnSerializeNetworkView",
+            "OnServerInitialized",
+            "OnTransformChildrenChanged",
+            "OnTransformParentChanged",
+            "OnTriggerEnter",
+            "OnTriggerEnter2D",
+            "OnTriggerExit",
+            "OnTriggerExit2D",
+            "OnTriggerStay",
+            "OnTriggerStay2D",
+            "OnValidate",
+            "OnWillRenderObject",
+            "Reset",
+            "Start"
+            ).Union(UpdateMethodNames);
+
         public MonoBehaviourInfo(SyntaxNodeAnalysisContext analysisContext)
         {
             _classDeclaration = analysisContext.Node as ClassDeclarationSyntax;
@@ -41,6 +102,22 @@ namespace Linty.Analyzers
                 foreach (var method in methods)
                 {
                     if (UpdateMethodNames.Contains(method.Identifier.ValueText))
+                    {
+                        callback(method);
+                    }
+                }
+            }
+        }
+
+        public void ForEachMonoBehaviourMethod(Action<MethodDeclarationSyntax> callback)
+        {
+            if (this.IsMonoBehaviour())
+            {
+                var methods = _classDeclaration.Members.OfType<MethodDeclarationSyntax>();
+
+                foreach (var method in methods)
+                {
+                    if (MonoBehaviourMethods.Contains(method.Identifier.ValueText))
                     {
                         callback(method);
                     }
