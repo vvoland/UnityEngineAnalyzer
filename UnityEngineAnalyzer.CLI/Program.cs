@@ -35,7 +35,7 @@ namespace UnityEngineAnalyzer.CLI
                 var startTime = DateTime.Now;
 
                 var fileName = options.ProjectFile;
-                var fileInfo = new FileInfo(fileName);
+                var projectFileInfo = new FileInfo(fileName);
 
                 //NOTE: This could be configurable via the CLI at some point
                 var report = new AnalyzerReport();
@@ -62,7 +62,7 @@ namespace UnityEngineAnalyzer.CLI
                 report.InitializeReport(options);
 
                 var tasks = new List<Task>();
-                if (fileInfo.Exists)
+                if (projectFileInfo.Exists)
                 {
                     FileInfo configFileInfo = null;
 
@@ -72,7 +72,7 @@ namespace UnityEngineAnalyzer.CLI
                     }
 
                     var solutionAnalyzer = new SolutionAnalyzer();
-                    var analyzeTask = solutionAnalyzer.LoadAndAnalyzeProjectAsync(fileInfo, configFileInfo, report);
+                    var analyzeTask = solutionAnalyzer.LoadAndAnalyzeProjectAsync(projectFileInfo, configFileInfo, report);
                     tasks.Add(analyzeTask);
                 }
 

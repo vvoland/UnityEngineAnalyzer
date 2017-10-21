@@ -5,6 +5,11 @@
 /[Bb]uilds/
 /Assets/AssetStoreTools*
 
+
+# Analyzer Files
+report.json
+UnityReport.html
+
 # Visual Studio 2015 cache directory
 /.vs/
 
