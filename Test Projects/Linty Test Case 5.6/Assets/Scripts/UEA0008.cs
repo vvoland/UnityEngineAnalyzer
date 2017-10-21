@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace assets
+namespace Assets.Scripts
 {
     public abstract class Animal
     {
