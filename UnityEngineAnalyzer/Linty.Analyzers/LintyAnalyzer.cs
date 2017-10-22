@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.Diagnostics;
 
 namespace Linty.Analyzers
 {
-    abstract class LintyAnalyzer : DiagnosticAnalyzer
+    public abstract class LintyAnalyzer : DiagnosticAnalyzer
     {
         private Action<MonoBehaviourInfo> _forEachMonoBehaviourCallback;
         private SyntaxNodeAnalysisContext? _context;
