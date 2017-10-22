@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Linty.UnityApi;
 using UnityEngineAnalyzer.CLI.Reporting;
 
 namespace UnityEngineAnalyzer.CLI
@@ -9,6 +10,8 @@ namespace UnityEngineAnalyzer.CLI
     public class Program
     {
         private static readonly Dictionary<string, Type> AvailableExporters = new Dictionary<string, Type>();
+
+        private static Linty.UnityApi.UnityProject _unityProject;
 
         static Program()
         {
@@ -29,6 +32,9 @@ namespace UnityEngineAnalyzer.CLI
                     return;
                 }
 
+                
+                
+
                 var unityVersionResolver = new UnityVersionResolver();
                 options.Version = unityVersionResolver.ResolveVersion(options);
 
@@ -36,6 +42,11 @@ namespace UnityEngineAnalyzer.CLI
 
                 var fileName = options.ProjectFile;
                 var projectFileInfo = new FileInfo(fileName);
+
+                _unityProject = new UnityProject(projectFileInfo.Directory);
+
+                Console.WriteLine(_unityProject.Version);
+                
 
                 //NOTE: This could be configurable via the CLI at some point
                 var report = new AnalyzerReport();
