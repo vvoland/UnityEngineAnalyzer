@@ -12,7 +12,10 @@ namespace Linty.UnityApi
         private readonly DirectoryInfo _unityProjectFolder;
         private EditorVersion _editorVersion;
 
-
+        /// <summary>
+        /// Represents a Unity project
+        /// </summary>
+        /// <param name="unityProjectFolder"></param>
         public UnityProject(DirectoryInfo unityProjectFolder)
         {
             if (unityProjectFolder != null && unityProjectFolder.Exists)
@@ -32,6 +35,9 @@ namespace Linty.UnityApi
 
 
                     var tagManager = deserializer.Deserialize<TagManagerAsset>(inputContent);
+
+                    this.Layers = tagManager.TagManager.Layers;
+                    this.Tags = tagManager.TagManager.Tags;
 
                     Console.WriteLine("tags: " + tagManager.TagManager.Layers.Count);
                 }
@@ -75,6 +81,16 @@ namespace Linty.UnityApi
         }
 
         /// <summary>
+        /// The tags that have been defined in this project
+        /// </summary>
+        public List<string> Tags { get; private set; }
+
+        /// <summary>
+        /// The Layers that have been defined in this project
+        /// </summary>
+        public List<string> Layers { get; private set; }
+
+        /// <summary>
         /// The version of the Unity Editor that created the unity project
         /// </summary>
         public EditorVersion Version
@@ -83,6 +99,7 @@ namespace Linty.UnityApi
             {
                 if (_editorVersion == null)
                 {
+                    
                     var projectVersionFilePath = Path.Combine(_unityProjectFolder.FullName, EditorVersion.ProjectVersionPath);
                     var projectVersionFileInfo = new FileInfo(projectVersionFilePath);
                     _editorVersion = new EditorVersion(projectVersionFileInfo);
@@ -95,6 +112,7 @@ namespace Linty.UnityApi
 
         public class EditorVersion
         {
+            //Only available after v5 - need to find an alternative method for pre v5
             public const string ProjectVersionPath = @"ProjectSettings\ProjectVersion.txt";
 
             public EditorVersion(FileInfo projectVersionFilePath)
