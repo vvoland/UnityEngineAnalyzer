@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using YamlDotNet.Serialization;
@@ -11,6 +12,9 @@ namespace Linty.UnityApi
     {
         private readonly DirectoryInfo _unityProjectFolder;
         private EditorVersion _editorVersion;
+
+        private readonly List<string> _defaultTags = new List<string>{"Untagged", "Respawn", "Finish", "EditorOnly", "MainCamera", "Player", "GameController"};
+
 
         /// <summary>
         /// Represents a Unity project
@@ -36,8 +40,10 @@ namespace Linty.UnityApi
 
                     var tagManager = deserializer.Deserialize<TagManagerAsset>(inputContent);
 
-                    this.Layers = tagManager.TagManager.Layers;
-                    this.Tags = tagManager.TagManager.Tags;
+                    this.Layers = new List<string> (tagManager.TagManager.Layers.Where(s=> !string.IsNullOrEmpty(s)));
+                    this.Tags = new List<string>(_defaultTags);
+                    this.Tags.AddRange(tagManager.TagManager.Tags.Where(s => !string.IsNullOrEmpty(s)));
+                           
 
                     Console.WriteLine("tags: " + tagManager.TagManager.Layers.Count);
                 }
@@ -168,11 +174,12 @@ namespace Linty.UnityApi
             }
         }
 
+        //For yaml deserialization
         public class TagManagerAsset
         {
             public TagManager TagManager { get; set; }
         }
-
+        //For yaml deserialization
         public class TagManager
         {
             [YamlMember(Alias = "serializedVersion")]
@@ -187,7 +194,7 @@ namespace Linty.UnityApi
             [YamlMember(Alias = "m_SortingLayers")]
             public List<SortingLayer> SortingLayers { get; set; }
         }
-
+        //For yaml deserialization
         public class SortingLayer
         {
             [YamlMember(Alias = "locked")]
