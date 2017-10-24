@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.Diagnostics;
 namespace Linty.Analyzers.EmptyMonoBehaviourMethods
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    sealed class EmptyMonoBehaviourMethodsAnalyzer : LintyAnalyzer
+    public sealed class EmptyMonoBehaviourMethodsAnalyzer : LintyAnalyzer
     {
         public EmptyMonoBehaviourMethodsAnalyzer()
         {
