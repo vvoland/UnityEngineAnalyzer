@@ -1,12 +1,19 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using Linty.Analyzers;
+using Linty.Analyzers.StringMethods;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
 using NUnit.Framework;
 using RoslynNUnitLight;
-using UnityEngineAnalyzer.StringMethods;
 
 namespace UnityEngineAnalyzer.Test.StringMethods
 {
+
+    //TODO: this test suite needs to be more thorough - check for positive/negative cases
+    // 1. the param is a constant
+    // 2. the param is a variable
+    // 3. the param is a literal
+
     [TestFixture]
     sealed class InvokeFunctionMissingAnalyzerTests : AnalyzerTestFixture
     {
@@ -21,7 +28,7 @@ using UnityEngine;
 
 class C : MonoBehaviour
 {
-    void Start() { [|Invoke(string.Empty, 0f)|]; }
+    void Start() { Invoke([|string.Empty|], 0f); }
 }";
 
             Document document;
@@ -42,7 +49,7 @@ class CC : MonoBehaviour { }
 class C : MonoBehaviour
 {
     private CC cc;
-    void Start() { [|cc.Invoke(string.Empty, 0f)|]; }
+    void Start() { cc.Invoke([|string.Empty|], 0f); }
 }";
 
             Document document;
@@ -60,7 +67,7 @@ using UnityEngine;
 
 class C : MonoBehaviour
 {
-    void Start() { [|InvokeRepeating(string.Empty, 0f, 0f)|]; }
+    void Start() { InvokeRepeating([|string.Empty|], 0f, 0f); }
 }";
 
             Document document;
@@ -81,7 +88,7 @@ class CC : MonoBehaviour { }
 class C : MonoBehaviour
 {
     private CC cc;
-    void Start() { [|cc.InvokeRepeating(string.Empty, 0f, 0f)|]; }
+    void Start() { cc.InvokeRepeating([|string.Empty|], 0f, 0f); }
 }";
 
             Document document;

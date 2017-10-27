@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO;
-using UnityEngineAnalyzer.ForEachInUpdate;
+using Linty.Analyzers.ForEachInUpdate;
 
 namespace UnityEngineAnalyzer.CLI
 {

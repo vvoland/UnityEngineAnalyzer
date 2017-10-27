@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.CodeAnalysis;
 using UnityEngineAnalyzer.CLI.Reporting;
+using Linty.Analyzers;
 
 namespace UnityEngineAnalyzer.CLI
 {
