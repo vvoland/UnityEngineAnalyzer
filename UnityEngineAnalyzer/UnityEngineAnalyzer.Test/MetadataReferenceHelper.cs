@@ -14,9 +14,23 @@ namespace UnityEngineAnalyzer.Test
 
         private static MetadataReference GetUnityMetadataReference()
         {
-            var unityEnginePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), @"Unity\Editor\Data\Managed", "UnityEngine.dll");
+            const string unityEngineFilePath = @"Editor\Data\Managed\UnityEngine.dll";
+            var programFilesFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
 
-            return MetadataReference.CreateFromFile(unityEnginePath);
+            var unityDirectories =
+                Directory.EnumerateDirectories(programFilesFolderPath, "*Unity*", SearchOption.TopDirectoryOnly);
+
+            foreach (var unityDirectory in unityDirectories)
+            {
+                var unityEngineFullPath = Path.Combine(unityDirectory, unityEngineFilePath);
+
+                if (File.Exists(unityEngineFullPath))
+                {
+                    return MetadataReference.CreateFromFile(unityEngineFullPath);
+                }
+            }
+
+            throw new FileNotFoundException("Unable to locate UnityEngine.dll");
         }
 
         private static MetadataReference GetSystem()
