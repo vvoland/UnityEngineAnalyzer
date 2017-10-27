@@ -2,6 +2,7 @@
 using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Linq;
+using Linty.Analyzers.StringMethods;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -23,6 +24,10 @@ namespace Linty.Analyzers.ConstantStrings
               description: new LocalizableResourceString(nameof(InvokeFunctionMissingResources.Description), InvokeFunctionMissingResources.ResourceManager, typeof(InvokeFunctionMissingResources))
         );
 
+
+        //TODO: Move this analyzer from "ConstnatStrings" to a folder called "UnityStrings"
+        //TODO: The InvokeFunctionMissing was used as a template - update this class so it works properly
+        private static readonly ImmutableHashSet<string> TagMethods = ImmutableHashSet.Create("CompareTag", "FindGameObjectsWithTag", "FindWithTag");
         private static readonly ImmutableHashSet<string> InvokeMethods = ImmutableHashSet.Create("Invoke", "InvokeRepeating");
         private static readonly string InvokeMethodTypeName = "UnityEngine.MonoBehaviour";
 
