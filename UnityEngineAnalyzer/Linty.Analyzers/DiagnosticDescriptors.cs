@@ -15,6 +15,7 @@ using Linty.Analyzers.Material;
 using Linty.Analyzers.OnGUI;
 using Linty.Analyzers.Physics;
 using Linty.Analyzers.StringMethods;
+using Linty.Analyzers.Transform;
 using Microsoft.CodeAnalysis;
 using UnityEngineAnalyzer;
 
@@ -40,6 +41,7 @@ namespace Linty.Analyzers
         public static readonly DiagnosticDescriptor UseNonAllocMethods;
         public static readonly DiagnosticDescriptor CameraMainIsSlow;
         public static readonly DiagnosticDescriptor AudioSourceMuteUsesCPU;
+        public static readonly DiagnosticDescriptor InstantiateTakeParent;
 
         static DiagnosticDescriptors()
         {
@@ -62,6 +64,7 @@ namespace Linty.Analyzers
             InvokeFunctionMissing = CreateDiagnosticDescriptor<InvokeFunctionMissingResources>(DiagnosticIDs.InvokeFunctionMissing, DiagnosticCategories.Performance, DiagnosticSeverity.Warning);
             DoNotUseStateName = CreateDiagnosticDescriptor<DoNotUseStateNameResource>(DiagnosticIDs.DoNotUseStateNameInAnimator, DiagnosticCategories.Performance, DiagnosticSeverity.Warning);
             DoNotUseStringPropertyNames = CreateDiagnosticDescriptor<DoNotUseStringPropertyNamesResource>(DiagnosticIDs.DoNotUseStringPropertyNamesInMaterial, DiagnosticCategories.Performance, DiagnosticSeverity.Warning);
+            InstantiateTakeParent = CreateDiagnosticDescriptor<InstantiateResource>(DiagnosticIDs.InstantiateShouldTakeParentArgument, DiagnosticCategories.Performance, DiagnosticSeverity.Warning, UnityVersion.UNITY_5_4);
 
             //Miscellaneous
             EmptyMonoBehaviourMethod = CreateDiagnosticDescriptor<EmptyMonoBehaviourMethodsResources>(DiagnosticIDs.EmptyMonoBehaviourMethod, DiagnosticCategories.Miscellaneous, DiagnosticSeverity.Warning);

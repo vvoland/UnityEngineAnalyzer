@@ -84,6 +84,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Update="Transform\InstantiateResource.Designer.cs">
+      <DependentUpon>InstantiateResource.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -175,6 +180,10 @@
     <EmbeddedResource Update="StringMethods\InvokeFunctionMissingResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>InvokeFunctionMissingResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Transform\InstantiateResource.resx">
+      <LastGenOutput>InstantiateResource.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
   </ItemGroup>
   

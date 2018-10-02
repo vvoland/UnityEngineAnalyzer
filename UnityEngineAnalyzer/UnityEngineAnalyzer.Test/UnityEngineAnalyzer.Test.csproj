@@ -135,6 +135,7 @@
     <Compile Include="RoslynNUnitLight\TestHelpers.cs" />
     <Compile Include="StringMethods\DoNotUseStringMethodsAnalyzerTests.cs" />
     <Compile Include="StringMethods\InvokeFunctionMissingAnalyzerTests.cs" />
+    <Compile Include="Transform\InstantiateAnalyzerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
