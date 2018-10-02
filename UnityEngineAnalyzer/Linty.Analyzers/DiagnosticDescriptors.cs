@@ -3,6 +3,7 @@ using System.Linq;
 using System.Resources;
 using Linty.Analyzers.Animator;
 using Linty.Analyzers.AOT;
+using Linty.Analyzers.Audio;
 using Linty.Analyzers.Camera;
 using Linty.Analyzers.CompareTag;
 using Linty.Analyzers.Coroutines;
@@ -38,6 +39,7 @@ namespace Linty.Analyzers
         public static readonly DiagnosticDescriptor DoNotUseStringPropertyNames;
         public static readonly DiagnosticDescriptor UseNonAllocMethods;
         public static readonly DiagnosticDescriptor CameraMainIsSlow;
+        public static readonly DiagnosticDescriptor AudioSourceMuteUsesCPU;
 
         static DiagnosticDescriptors()
         {
@@ -52,6 +54,7 @@ namespace Linty.Analyzers
             CameraMainIsSlow = CreateDiagnosticDescriptor<CameraMainResource>(DiagnosticIDs.CameraMainIsSlow, DiagnosticCategories.GC, DiagnosticSeverity.Warning);
 
             //Performance
+            AudioSourceMuteUsesCPU = CreateDiagnosticDescriptor<AudioSourceResource>(DiagnosticIDs.AudioSourceMuteUsesCPU, DiagnosticCategories.Performance, DiagnosticSeverity.Info);
             DoNotUseFindMethodsInUpdate = CreateDiagnosticDescriptor<DoNotUseFindMethodsInUpdateResources>(DiagnosticIDs.DoNotUseFindMethodsInUpdate, DiagnosticCategories.Performance, DiagnosticSeverity.Warning);
             DoNotUseFindMethodsInUpdateRecursive = CreateDiagnosticDescriptor<DoNotUseFindMethodsInUpdateResources>(DiagnosticIDs.DoNotUseFindMethodsInUpdate, DiagnosticCategories.Performance, DiagnosticSeverity.Warning);
             DoNotUseForEachInUpdate = CreateDiagnosticDescriptor<DoNotUseForEachInUpdateResources>(DiagnosticIDs.DoNotUseForEachInUpdate, DiagnosticCategories.Performance, DiagnosticSeverity.Warning, UnityVersion.UNITY_1_0, UnityVersion.UNITY_5_5);
