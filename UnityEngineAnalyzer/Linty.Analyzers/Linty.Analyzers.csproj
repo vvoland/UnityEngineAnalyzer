@@ -29,6 +29,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Update="Audio\AudioSourceResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AudioSourceResource.resx</DependentUpon>
+    </Compile>
     <Compile Update="Camera\CameraMainResource.Designer.cs">
       <DependentUpon>CameraMainResource.resx</DependentUpon>
       <DesignTime>True</DesignTime>
@@ -97,6 +102,10 @@
     <EmbeddedResource Update="AOT\TypeGetTypeResources.resx">
       <LastGenOutput>TypeGetTypeResources.Designer.cs</LastGenOutput>
       <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Audio\AudioSourceResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AudioSourceResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Camera\CameraMainResource.resx">
       <LastGenOutput>CameraMainResource.Designer.cs</LastGenOutput>
