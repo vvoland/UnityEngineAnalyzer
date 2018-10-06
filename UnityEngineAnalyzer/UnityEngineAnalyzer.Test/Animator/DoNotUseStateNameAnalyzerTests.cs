@@ -12,7 +12,6 @@ namespace UnityEngineAnalyzer.Test.Animator
     [TestFixture]
     sealed class DoNotSetAnimatorParameterWithNameAnalyzerTests : AnalyzerTestFixture
     {
-        protected override string LanguageName => LanguageNames.CSharp;
         protected override DiagnosticAnalyzer CreateAnalyzer() => new DoNotUseStateNameAnalyzer();
 
         [Test]
@@ -31,11 +30,7 @@ class C : MonoBehaviour
     }
 }";
 
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            HasDiagnostic(document, span, DiagnosticIDs.DoNotUseStateNameInAnimator);
+            HasDiagnostic(code, DiagnosticIDs.DoNotUseStateNameInAnimator);
         }
 
         [Test]
@@ -54,11 +49,7 @@ class C : MonoBehaviour
     }
 }";
 
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            HasDiagnostic(document, span, DiagnosticIDs.DoNotUseStateNameInAnimator);
+            HasDiagnostic(code, DiagnosticIDs.DoNotUseStateNameInAnimator);
         }
 
         [Test]
@@ -77,11 +68,7 @@ class C : MonoBehaviour
     }
 }";
 
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            HasDiagnostic(document, span, DiagnosticIDs.DoNotUseStateNameInAnimator);
+            HasDiagnostic(code, DiagnosticIDs.DoNotUseStateNameInAnimator);
         }
     }
 }

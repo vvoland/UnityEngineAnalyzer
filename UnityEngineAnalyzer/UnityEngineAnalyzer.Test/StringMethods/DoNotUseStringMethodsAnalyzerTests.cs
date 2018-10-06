@@ -1,8 +1,6 @@
 ﻿using Linty.Analyzers;
 using Linty.Analyzers.StringMethods;
-using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
-using Microsoft.CodeAnalysis.Text;
 using NUnit.Framework;
 using RoslynNUnitLight;
 
@@ -11,7 +9,6 @@ namespace UnityEngineAnalyzer.Test.StringMethods
     [TestFixture]
     sealed class DoNotUseStringMethodsAnalyzerTests : AnalyzerTestFixture
     {
-        protected override string LanguageName => LanguageNames.CSharp;
         protected override DiagnosticAnalyzer CreateAnalyzer() => new DoNotUseStringMethodsAnalyzer();
 
         [Test]
@@ -25,11 +22,7 @@ class C : MonoBehaviour
     void Start() { [|SendMessage(string.Empty)|]; }
 }";
 
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            HasDiagnostic(document, span, DiagnosticIDs.DoNotUseStringMethods);
+            HasDiagnostic(code, DiagnosticIDs.DoNotUseStringMethods);
         }
 
         [Test]
@@ -43,11 +36,7 @@ class C : MonoBehaviour
     void Start() { [|SendMessageUpwards(string.Empty)|]; }
 }";
 
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            HasDiagnostic(document, span, DiagnosticIDs.DoNotUseStringMethods);
+            HasDiagnostic(code, DiagnosticIDs.DoNotUseStringMethods);
         }
 
         [Test]
@@ -61,11 +50,7 @@ class C : MonoBehaviour
     void Start() { [|BroadcastMessage(string.Empty)|]; }
 }";
 
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            HasDiagnostic(document, span, DiagnosticIDs.DoNotUseStringMethods);
+            HasDiagnostic(code, DiagnosticIDs.DoNotUseStringMethods);
         }
 
         [Test]
@@ -80,11 +65,7 @@ class C : MonoBehaviour
     void Start() { [|go.SendMessage(string.Empty)|]; }
 }";
 
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            HasDiagnostic(document, span, DiagnosticIDs.DoNotUseStringMethods);
+            HasDiagnostic(code, DiagnosticIDs.DoNotUseStringMethods);
         }
 
         [Test]
@@ -99,11 +80,7 @@ class C : MonoBehaviour
     void Start() { [|go.SendMessageUpwards(string.Empty)|]; }
 }";
 
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            HasDiagnostic(document, span, DiagnosticIDs.DoNotUseStringMethods);
+            HasDiagnostic(code, DiagnosticIDs.DoNotUseStringMethods);
         }
 
         [Test]
@@ -118,11 +95,7 @@ class C : MonoBehaviour
     void Start() { [|go.BroadcastMessage(string.Empty)|]; }
 }";
 
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            HasDiagnostic(document, span, DiagnosticIDs.DoNotUseStringMethods);
+            HasDiagnostic(code, DiagnosticIDs.DoNotUseStringMethods);
         }
 
         [Test]
@@ -139,11 +112,7 @@ class C : MonoBehaviour
     void Start() { [|cc.SendMessage(string.Empty)|]; }
 }";
 
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            HasDiagnostic(document, span, DiagnosticIDs.DoNotUseStringMethods);
+            HasDiagnostic(code, DiagnosticIDs.DoNotUseStringMethods);
         }
 
         [Test]
@@ -160,11 +129,7 @@ class C : MonoBehaviour
     void Start() { [|cc.SendMessageUpwards(string.Empty)|]; }
 }";
 
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            HasDiagnostic(document, span, DiagnosticIDs.DoNotUseStringMethods);
+            HasDiagnostic(code, DiagnosticIDs.DoNotUseStringMethods);
         }
 
         [Test]
@@ -181,11 +146,7 @@ class C : MonoBehaviour
     void Start() { [|cc.BroadcastMessage(string.Empty)|]; }
 }";
 
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            HasDiagnostic(document, span, DiagnosticIDs.DoNotUseStringMethods);
+            HasDiagnostic(code, DiagnosticIDs.DoNotUseStringMethods);
         }
     }
 }

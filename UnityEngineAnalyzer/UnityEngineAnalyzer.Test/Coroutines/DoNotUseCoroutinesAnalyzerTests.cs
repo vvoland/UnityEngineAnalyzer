@@ -1,8 +1,6 @@
 ﻿using Linty.Analyzers;
 using Linty.Analyzers.Coroutines;
-using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
-using Microsoft.CodeAnalysis.Text;
 using NUnit.Framework;
 using RoslynNUnitLight;
 
@@ -11,7 +9,6 @@ namespace UnityEngineAnalyzer.Test.Coroutines
     [TestFixture]
     sealed class DoNotUseCoroutinesAnalyzerTests : AnalyzerTestFixture
     {
-        protected override string LanguageName => LanguageNames.CSharp;
         protected override DiagnosticAnalyzer CreateAnalyzer() => new DoNotUseCoroutinesAnalyzer();
 
         [Test]
@@ -27,11 +24,7 @@ class C : MonoBehaviour
         [|StartCoroutine(""MyCoroutine"")|];
     }
 }";
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            HasDiagnostic(document, span, DiagnosticIDs.DoNotUseCoroutines);
+            HasDiagnostic(code, DiagnosticIDs.DoNotUseCoroutines);
         }
 
         [Test]
@@ -50,11 +43,7 @@ class C : MonoBehaviour
         [|cc.StartCoroutine(""MyCoroutine"")|];
     }
 }";
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            HasDiagnostic(document, span, DiagnosticIDs.DoNotUseCoroutines);
+            HasDiagnostic(code, DiagnosticIDs.DoNotUseCoroutines);
         }
     }
 }

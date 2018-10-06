@@ -5,6 +5,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
 using NUnit.Framework;
+using UnityEngineAnalyzer.Test;
 
 namespace RoslynNUnitLight
 {
@@ -12,14 +13,18 @@ namespace RoslynNUnitLight
     {
         protected abstract DiagnosticAnalyzer CreateAnalyzer();
 
+        protected override string LanguageName => LanguageNames.CSharp;
+
         protected void NoDiagnostic(string code, string diagnosticId)
         {
-            var document = TestHelpers.GetDocument(code, LanguageName);
+            Document document;
+            TextSpan span;
+            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
 
             NoDiagnostic(document, diagnosticId);
         }
 
-        protected void NoDiagnostic(Document document, string diagnosticId)
+        private void NoDiagnostic(Document document, string diagnosticId)
         {
             var diagnostics = GetDiagnostics(document);
 
@@ -30,12 +35,12 @@ namespace RoslynNUnitLight
         {
             Document document;
             TextSpan span;
-            Assert.That(TestHelpers.TryGetDocumentAndSpanFromMarkup(markupCode, LanguageName, out document, out span), Is.True);
+            Assert.That(TestHelpers.TryGetDocumentAndSpanFromMarkup(markupCode, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span), Is.True);
 
             HasDiagnostic(document, span, diagnosticId);
         }
 
-        protected void HasDiagnostic(Document document, TextSpan span, string diagnosticId)
+        private void HasDiagnostic(Document document, TextSpan span, string diagnosticId)
         {
             var diagnostics = GetDiagnostics(document);
             Assert.That(diagnostics.Length, Is.EqualTo(1));

@@ -11,7 +11,6 @@ namespace UnityEngineAnalyzer.Test.OnGUI
     [TestFixture]
     sealed class DoNotUseOnGUIAnalyzerTests : AnalyzerTestFixture
     {
-        protected override string LanguageName => LanguageNames.CSharp;
         protected override DiagnosticAnalyzer CreateAnalyzer() => new DoNotUseOnGUIAnalyzer();
 
         [Test]
@@ -25,11 +24,7 @@ class C : MonoBehaviour
     void [|OnGUI|]() { }
 }";
 
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            HasDiagnostic(document, span, DiagnosticIDs.DoNotUseOnGUI);
+            HasDiagnostic(code, DiagnosticIDs.DoNotUseOnGUI);
         }
 
         [Test]
