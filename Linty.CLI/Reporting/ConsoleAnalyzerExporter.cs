@@ -1,6 +1,7 @@
 using System;
+using UnityEngineAnalyzer;
 
-namespace UnityEngineAnalyzer.CLI.Reporting
+namespace Linty.CLI.Reporting
 {
     public class ConsoleAnalyzerExporter : StandardOutputAnalyzerReporter
     {

@@ -4,7 +4,7 @@ using Newtonsoft.Json.Linq;
 using System.IO;
 using Linty.Analyzers.ForEachInUpdate;
 
-namespace UnityEngineAnalyzer.CLI
+namespace Linty.CLI
 {
     //NOTE: This kind of configuration file should be created after build
     class ConfigurationFileGenerator

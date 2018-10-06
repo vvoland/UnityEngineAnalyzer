@@ -3,6 +3,18 @@ UnityEngineAnalyzer
 
 UnityEngineAnalyzer is a set of Roslyn analyzers that aim to detect common problems in Unity3D C# code. Unity3D makes it easy for us to make cross platform games, but there are hidden rules about performance and AOT, which might only come with experience, testing or reading the forums. It is hoped that such problems can be caught before compilation.
 
+Building CLI executable
+---------------------
+
+CLI requires .NET Core 2.1
+
+```
+dotnet publish -c Release -r win10-x64
+```
+or
+```
+dotnet publish -c Release -r ubuntu.16.10-x64
+```
 
 Comand Line Interface
 ---------------------
@@ -10,7 +22,7 @@ Comand Line Interface
 In order to use the Command Line Interface (CLI), download the latest release of UnityEngineAnalyzer then unzip the archive (https://github.com/vad710/UnityEngineAnalyzer/releases).
 
 1. Open a Command Prompt or Powershell Window
-1. Run `UnityEngineAnalyzer.CLI.exe <project path>`
+1. Run `Linty.CLI.exe <project path>`
 1. Observe the analysis results
 1. (Optional) In the same location as the project file are `report.json` and `UnityReport.html` files containig the results of the analysis
     * Use command `-e customexporter exporter2 ...` to load custom exporters
@@ -26,13 +38,13 @@ In order to use the Command Line Interface (CLI), download the latest release of
 
 Example:
 
-`> UnityEngineAnalyzer.CLI.exe C:\Code\MyGame.CSharp.csproj` 
+`> Linty.CLI.exe C:\Code\MyGame.CSharp.csproj` 
 
 
 Visual Studio Integration
 -------------------------
 
-In Visual Studio 2015, go to `Tools > Nuget Package Manager > Manage Nuget Packages for Solution...`. Search for and install `UnityEngineAnalyzer`
+In Visual Studio 2017, go to `Tools > Nuget Package Manager > Manage Nuget Packages for Solution...`. Search for and install `UnityEngineAnalyzer`
 
 Configuration
 -------------

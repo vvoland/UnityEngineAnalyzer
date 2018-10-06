@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 
-namespace UnityEngineAnalyzer.CLI.Reporting
+namespace Linty.CLI.Reporting
 {
     public class JsonAnalyzerExporter : AnalyzerExporter
     {
