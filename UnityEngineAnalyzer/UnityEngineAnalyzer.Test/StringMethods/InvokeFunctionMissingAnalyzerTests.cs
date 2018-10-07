@@ -1,8 +1,6 @@
 ﻿using Linty.Analyzers;
 using Linty.Analyzers.StringMethods;
-using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
-using Microsoft.CodeAnalysis.Text;
 using NUnit.Framework;
 using RoslynNUnitLight;
 
@@ -17,7 +15,6 @@ namespace UnityEngineAnalyzer.Test.StringMethods
     [TestFixture]
     sealed class InvokeFunctionMissingAnalyzerTests : AnalyzerTestFixture
     {
-        protected override string LanguageName => LanguageNames.CSharp;
         protected override DiagnosticAnalyzer CreateAnalyzer() => new InvokeFunctionMissingAnalyzer();
 
         [Test]
@@ -31,11 +28,7 @@ class C : MonoBehaviour
     void Start() { Invoke([|string.Empty|], 0f); }
 }";
 
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            HasDiagnostic(document, span, DiagnosticIDs.InvokeFunctionMissing);
+            HasDiagnostic(code, DiagnosticIDs.InvokeFunctionMissing);
         }
 
         [Test]
@@ -52,11 +45,7 @@ class C : MonoBehaviour
     void Start() { cc.Invoke([|string.Empty|], 0f); }
 }";
 
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            HasDiagnostic(document, span, DiagnosticIDs.InvokeFunctionMissing);
+            HasDiagnostic(code, DiagnosticIDs.InvokeFunctionMissing);
         }
 
         [Test]
@@ -70,11 +59,7 @@ class C : MonoBehaviour
     void Start() { InvokeRepeating([|string.Empty|], 0f, 0f); }
 }";
 
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            HasDiagnostic(document, span, DiagnosticIDs.InvokeFunctionMissing);
+            HasDiagnostic(code, DiagnosticIDs.InvokeFunctionMissing);
         }
 
         [Test]
@@ -91,11 +76,7 @@ class C : MonoBehaviour
     void Start() { cc.InvokeRepeating([|string.Empty|], 0f, 0f); }
 }";
 
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            HasDiagnostic(document, span, DiagnosticIDs.InvokeFunctionMissing);
+            HasDiagnostic(code, DiagnosticIDs.InvokeFunctionMissing);
         }
     }
 }

@@ -85,6 +85,12 @@ namespace Linty.Analyzers.Camera
                 }
 
                 var methodSymbol = symbolInfo.Symbol as IMethodSymbol;
+
+                if (methodSymbol == null)
+                {
+                    return;
+                }
+
                 var methodDeclarations = methodSymbol.DeclaringSyntaxReferences;
 
                 foreach (var methodDeclaration in methodDeclarations)

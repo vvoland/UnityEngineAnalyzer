@@ -12,7 +12,6 @@ namespace UnityEngineAnalyzer.Test.Material
     [TestFixture]
     sealed class DoNotUseStringPropertyNamesAnalyzerTests : AnalyzerTestFixture
     {
-        protected override string LanguageName => LanguageNames.CSharp;
         protected override DiagnosticAnalyzer CreateAnalyzer() => new DoNotUseStringPropertyNamesAnalyzer();
 
         [Test]
@@ -31,11 +30,7 @@ class C : MonoBehaviour
     }
 }";
 
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            HasDiagnostic(document, span, DiagnosticIDs.DoNotUseStringPropertyNamesInMaterial);
+            HasDiagnostic(code, DiagnosticIDs.DoNotUseStringPropertyNamesInMaterial);
         }
 
         [Test]
@@ -54,11 +49,7 @@ class C : MonoBehaviour
     }
 }";
 
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            HasDiagnostic(document, span, DiagnosticIDs.DoNotUseStringPropertyNamesInMaterial);
+            HasDiagnostic(code, DiagnosticIDs.DoNotUseStringPropertyNamesInMaterial);
         }
 
         [Test]
@@ -77,11 +68,7 @@ class C : MonoBehaviour
     }
 }";
 
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            HasDiagnostic(document, span, DiagnosticIDs.DoNotUseStringPropertyNamesInMaterial);
+            HasDiagnostic(code, DiagnosticIDs.DoNotUseStringPropertyNamesInMaterial);
         }
     }
 }

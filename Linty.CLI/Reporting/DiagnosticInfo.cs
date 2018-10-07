@@ -1,4 +1,6 @@
-namespace UnityEngineAnalyzer.CLI.Reporting
+using UnityEngineAnalyzer;
+
+namespace Linty.CLI.Reporting
 {
     public class DiagnosticInfo
     {

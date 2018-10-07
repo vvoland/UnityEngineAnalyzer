@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+  <Target Name="ConfigGenerator" AfterTargets="Build">
+	<!-- TODO Generate the CLI Linty.CLI.ConfigurationFileGenerator file here -->
+  </Target>
+
+  <ItemGroup>
+    <None Remove="UnityReport.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="UnityReport.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Buildalyzer.Workspaces" Version="2.1.0" />
+    <PackageReference Include="CommandLineParser" Version="2.3.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="2.9.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UnityEngineAnalyzer\Linty.Analyzers\Linty.Analyzers.csproj" />
+  </ItemGroup>
+
+</Project>

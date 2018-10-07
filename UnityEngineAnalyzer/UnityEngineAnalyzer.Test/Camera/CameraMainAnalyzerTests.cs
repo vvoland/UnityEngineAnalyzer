@@ -1,8 +1,6 @@
 ﻿using Linty.Analyzers;
 using Linty.Analyzers.Camera;
-using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
-using Microsoft.CodeAnalysis.Text;
 using NUnit.Framework;
 using RoslynNUnitLight;
 
@@ -11,7 +9,6 @@ namespace UnityEngineAnalyzer.Test.Camera
     [TestFixture]
     sealed class CameraMainAnalyzerTests : AnalyzerTestFixture
     {
-        protected override string LanguageName => LanguageNames.CSharp;
         protected override DiagnosticAnalyzer CreateAnalyzer() => new CameraMainAnalyzer();
 
         [Test]
@@ -28,11 +25,7 @@ class C : MonoBehaviour
     }
 }";
 
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            HasDiagnostic(document, span, DiagnosticIDs.CameraMainIsSlow);
+            HasDiagnostic(code, DiagnosticIDs.CameraMainIsSlow);
         }
 
         [Test]
@@ -49,11 +42,7 @@ class C : MonoBehaviour
     }
 }";
 
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            HasDiagnostic(document, span, DiagnosticIDs.CameraMainIsSlow);
+            HasDiagnostic(code, DiagnosticIDs.CameraMainIsSlow);
         }
 
         [Test]
@@ -77,11 +66,7 @@ class C : MonoBehaviour
     }
 }";
 
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            HasDiagnostic(document, span, DiagnosticIDs.CameraMainIsSlow);
+            HasDiagnostic(code, DiagnosticIDs.CameraMainIsSlow);
         }
 
         [Test]
@@ -98,11 +83,7 @@ class C : MonoBehaviour
     }
 }";
 
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            NoDiagnostic(document, DiagnosticIDs.CameraMainIsSlow);
+            NoDiagnostic(code, DiagnosticIDs.CameraMainIsSlow);
         }
     }
 }

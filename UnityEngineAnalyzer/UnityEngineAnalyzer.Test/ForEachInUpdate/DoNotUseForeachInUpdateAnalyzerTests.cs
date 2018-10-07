@@ -1,9 +1,6 @@
-﻿using System.Diagnostics;
-using Linty.Analyzers;
+﻿using Linty.Analyzers;
 using Linty.Analyzers.ForEachInUpdate;
-using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
-using Microsoft.CodeAnalysis.Text;
 using NUnit.Framework;
 using RoslynNUnitLight;
 
@@ -12,8 +9,6 @@ namespace UnityEngineAnalyzer.Test.ForEachInUpdate
     [TestFixture]
     sealed class DoNotUseForeachInUpdateAnalyzerTests : AnalyzerTestFixture
     {
-
-        protected override string LanguageName => LanguageNames.CSharp;
         protected override DiagnosticAnalyzer CreateAnalyzer() => new DoNotUseForEachInUpdate();
 
         [Test]
@@ -35,20 +30,8 @@ class C : MonoBehaviour
         }
 }";
 
-            
 
-            Document document;
-            TextSpan span;
-
-            if (TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine,
-                out document, out span))
-            {
-                HasDiagnostic(document, span, DiagnosticIDs.DoNotUseForEachInUpdate);
-            }
-            else
-            {
-                Assert.Fail("Could not load unit test code");
-            }
+             HasDiagnostic(code, DiagnosticIDs.DoNotUseForEachInUpdate);
         }
     }
 }

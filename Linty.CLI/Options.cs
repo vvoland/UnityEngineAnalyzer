@@ -1,12 +1,13 @@
 ﻿using CommandLine;
 using System.Collections.Generic;
-using static UnityEngineAnalyzer.CLI.Reporting.DiagnosticInfo;
+using UnityEngineAnalyzer;
+using static Linty.CLI.Reporting.DiagnosticInfo;
 
-namespace UnityEngineAnalyzer.CLI
+namespace Linty.CLI
 {
     public class Options
     {
-        [ValueOption(0)]
+        [Value(0, Required = true)]
         public string ProjectFile { get; set; }
 
         [Option('e', "exporter", HelpText = "Exporters to be used.")]
@@ -15,10 +16,10 @@ namespace UnityEngineAnalyzer.CLI
         [Option('c', "configuration", HelpText = "Custom json configuration to be used.")]
         public string ConfigurationFile { get; set; }
 
-        [Option('s', "severity", DefaultValue = DiagnosticInfoSeverity.Warning, HelpText = "Minimal severity to be reported.")]
+        [Option('s', "severity", Default = DiagnosticInfoSeverity.Warning, HelpText = "Minimal severity to be reported.")]
         public DiagnosticInfoSeverity MinimalSeverity { get; set; }
 
-        [Option('v', "version", DefaultValue = UnityVersion.NONE, HelpText = "Check against spesific Unity version.")]
+        [Option('v', "version", Default = UnityVersion.NONE, HelpText = "Check against spesific Unity version.")]
         public UnityVersion Version { get; set; }
     }
 }

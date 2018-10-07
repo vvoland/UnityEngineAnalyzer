@@ -1,25 +1,27 @@
 ﻿using System;
 using System.Collections.Immutable;
 using System.IO;
-using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
-using Microsoft.CodeAnalysis.MSBuild;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using Linty.Analyzers.ForEachInUpdate;
+using Buildalyzer.Workspaces;
+using Buildalyzer;
 
-namespace UnityEngineAnalyzer.CLI
+namespace Linty.CLI
 {
     public class SolutionAnalyzer
     {
         public async Task LoadAndAnalyzeProjectAsync(FileInfo projectFile, FileInfo configFileInfo, AnalyzerReport report)
         {
-            var workspace = MSBuildWorkspace.Create();
+            AnalyzerManager manager = new AnalyzerManager();
+            ProjectAnalyzer analyzer = manager.GetProject(projectFile.FullName);
 
-            var project = await workspace.OpenProjectAsync(projectFile.FullName, CancellationToken.None);
+            AdhocWorkspace workspace = new AdhocWorkspace();
+            Project project = analyzer.AddToWorkspace(workspace);
 
             var analyzerDictionary = LoadConfigFile(configFileInfo);
             var analyzers = this.GetAnalyzers(analyzerDictionary);
@@ -66,7 +68,7 @@ namespace UnityEngineAnalyzer.CLI
 
             foreach (var type in allTypes)
             {
-                if (type.IsSubclassOf(typeof(DiagnosticAnalyzer))  && !type.IsAbstract)
+                if (type.IsSubclassOf(typeof(DiagnosticAnalyzer)) && !type.IsAbstract)
                 {
                     if (IsAnalyzerAllowedInConfiguration(analyzerDictionary, type.Name))
                     {
@@ -95,8 +97,6 @@ namespace UnityEngineAnalyzer.CLI
             {
                 report.NotifyException(exception);
             }
-
-
         }
     }
 }
