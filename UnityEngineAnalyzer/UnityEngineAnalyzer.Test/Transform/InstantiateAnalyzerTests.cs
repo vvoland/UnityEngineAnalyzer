@@ -2,7 +2,6 @@
 using Linty.Analyzers.Transform;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
-using Microsoft.CodeAnalysis.Text;
 using NUnit.Framework;
 using RoslynNUnitLight;
 
@@ -15,7 +14,7 @@ namespace UnityEngineAnalyzer.Test.Transform
         protected override DiagnosticAnalyzer CreateAnalyzer() => new InstantiateAnalyzer();
 
         [Test]
-        public void IfParentIsSetRightAfterInstantiateRaiseWarning()
+        public void IfParentIsSetRightAfterInstantiateRaiseWarningNewVariable()
         {
             const string code = @"
 using UnityEngine;
@@ -32,15 +31,33 @@ class C : MonoBehaviour
     }
 }";
 
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            HasDiagnostic(document, span, DiagnosticIDs.InstantiateShouldTakeParentArgument);
+            HasDiagnostic(code, DiagnosticIDs.InstantiateShouldTakeParentArgument);
         }
 
         [Test]
-        public void IfParentIsSetRightAfterInstantiateRaiseWarning2()
+        public void IfParentIsSetRightAfterInstantiateRaiseWarningOldVariable()
+        {
+            const string code = @"
+using UnityEngine;
+
+class C : MonoBehaviour
+{
+    GameObject prefabObject;
+    GameObject newParent;
+    GameObject newGameObject;
+
+    void Update()
+    {
+        newGameObject = [|Instantiate(prefabObject, Vector3.zero, Quaternion.identity)|];
+        newGameObject.transform.SetParent(newParent.transform, false);
+    }
+}";
+
+            HasDiagnostic(code, DiagnosticIDs.InstantiateShouldTakeParentArgument);
+        }
+
+        [Test]
+        public void IfParentIsSetRightAfterInstantiateRaiseWarningOldVariableAsTransform()
         {
             const string code = @"
 using UnityEngine;
@@ -58,15 +75,12 @@ class C : MonoBehaviour
     }
 }";
 
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            HasDiagnostic(document, span, DiagnosticIDs.InstantiateShouldTakeParentArgument);
+            HasDiagnostic(code, DiagnosticIDs.InstantiateShouldTakeParentArgument);
         }
 
+
         [Test]
-        public void IfParentIsSetRightAfterInstantiateRaiseWarningFindTheEvilSetParentThrougMethods()
+        public void Instantiate_Should_Not_Throw_Warning_If_Parent_Is_Set_On_Instantiate()
         {
             const string code = @"
 using UnityEngine;
@@ -78,25 +92,15 @@ class C : MonoBehaviour
 
     void Update()
     {
-        var newGameobject = [|Instantiate(prefabObject)|];
-        EvilParentSetter(newGameobject);
-    }
-
-    void EvilParentSetter(GameObject newObj)
-    { 
-        newObj.transform.SetParent(newParent.transform, false);
+        [|var newGameobject = Instantiate(prefabObject, newParent.transform);|]
     }
 }";
 
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            HasDiagnostic(document, span, DiagnosticIDs.InstantiateShouldTakeParentArgument);
+            NoDiagnostic(code, DiagnosticIDs.InstantiateShouldTakeParentArgument);
         }
 
         [Test]
-        public void SetParentShouldHappenToNewlyInstantiatedGameObject()
+        public void Instantiate_Should_Not_Throw_Warning_If_SetParent_Is_Not_Called()
         {
             const string code = @"
 using UnityEngine;
@@ -117,7 +121,29 @@ class C : MonoBehaviour
         }
 
         [Test]
-        public void InstantiateShouldNotThrowWarningIfParentIsSetOnInstantiate()
+        public void Instantiate_Should_Not_Throw_Warning_If_SetParent_Is_Called_Before_Instantiate()
+        {
+            const string code = @"
+using UnityEngine;
+
+class C : MonoBehaviour
+{
+    GameObject prefabObject;
+    GameObject newParent;
+    GameObject newGameobject;
+
+    void Update()
+    {
+        newGameobject.transform.SetParent(newParent.transform, false);
+        [|var newGameobject = Instantiate(prefabObject);|]
+    }
+}";
+
+            NoDiagnostic(code, DiagnosticIDs.InstantiateShouldTakeParentArgument);
+        }
+
+        [Test]
+        public void Instantiate_Should_Not_Throw_Warning_If_SetParent_Is_Called_On_Different_Variable()
         {
             const string code = @"
 using UnityEngine;
@@ -129,7 +155,9 @@ class C : MonoBehaviour
 
     void Update()
     {
-        [|var newGameobject = Instantiate(prefabObject, newParent.transform);|]
+        [|var newGameobject = Instantiate(prefabObject);|]
+        newGameObject = prefabObject;
+        newGameobject.transform.SetParent(newParent.transform, false);
     }
 }";
 
