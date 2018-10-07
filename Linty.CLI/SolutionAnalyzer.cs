@@ -68,7 +68,7 @@ namespace Linty.CLI
 
             foreach (var type in allTypes)
             {
-                if (type.IsSubclassOf(typeof(DiagnosticAnalyzer))  && !type.IsAbstract)
+                if (type.IsSubclassOf(typeof(DiagnosticAnalyzer)) && !type.IsAbstract)
                 {
                     if (IsAnalyzerAllowedInConfiguration(analyzerDictionary, type.Name))
                     {
