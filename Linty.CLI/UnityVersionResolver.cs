@@ -2,9 +2,9 @@
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Linty.Analyzers;
+using UnityEngineAnalyzer;
 
-namespace UnityEngineAnalyzer.CLI
+namespace Linty.CLI
 {
     //NOTE: This class would benefit from UnitTests specially: TryParseUnityVersion
     internal class UnityVersionResolver

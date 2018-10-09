@@ -80,6 +80,10 @@ namespace Linty.Analyzers
             {
                 name = ((GenericNameSyntax)invocation.Expression).Identifier.ToString();
             }
+            else if (invocation.Expression is MemberBindingExpressionSyntax)
+            {
+                name = ((MemberBindingExpressionSyntax)invocation.Expression).Name.Identifier.ToString();
+            }
             else
             {
                 throw new ArgumentException("Unable to determine name of method. Invocation is of type: " + invocation.Expression.GetType());

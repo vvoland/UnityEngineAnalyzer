@@ -3,15 +3,18 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using Linty.Analyzers.ForEachInUpdate;
+using Microsoft.Build.Utilities;
 
-namespace UnityEngineAnalyzer.CLI
+namespace Linty.CLI
 {
-    //NOTE: This kind of configuration file should be created after build
-    class ConfigurationFileGenerator
+    /// <summary>
+    /// TODO:: This Task should be run after build so the analyzerConfiguration.json gets generated with latets analyzers automatically
+    /// </summary>
+    public class ConfigurationFileGenerator : Task
     {
         private const string configurationFileName = "analyzerConfiguration.json";
 
-        public void GenerateConfigurationFile()
+        public override bool Execute()
         {
             var assembly = typeof(DoNotUseForEachInUpdate).Assembly;
             var allTypes = assembly.DefinedTypes;
@@ -20,13 +23,16 @@ namespace UnityEngineAnalyzer.CLI
 
             foreach (var typeInfo in allTypes)
             {
-                if (typeInfo.BaseType == typeof(DiagnosticAnalyzer))
+                if (typeInfo.IsSubclassOf(typeof(DiagnosticAnalyzer)) && !typeInfo.IsAbstract)
                 {
                     rootJson.Add(new JProperty(typeInfo.Name, true)); //TODO SupportedDiagnostics.IsEnabledByDefault;
                 }
             }
 
-            using (StreamWriter sw = File.CreateText("./" + configurationFileName))
+            var projectDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+            var filePath = Path.Combine(projectDir, configurationFileName);
+
+            using (StreamWriter sw = File.CreateText(filePath))
             {
                 using (JsonTextWriter writer = new JsonTextWriter(sw))
                 {
@@ -34,6 +40,8 @@ namespace UnityEngineAnalyzer.CLI
                     rootJson.WriteTo(writer);
                 }
             }
+
+            return true;
         }
     }
 }

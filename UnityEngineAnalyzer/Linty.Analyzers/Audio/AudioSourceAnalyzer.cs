@@ -38,6 +38,11 @@ namespace Linty.Analyzers.Audio
                 return;
             }
 
+            if (symbolInfo.Symbol == null)
+            {
+                return;
+            }
+
             var containingClass = symbolInfo.Symbol.ContainingType;
             var assigmentName = symbolInfo.Symbol.Name;
 

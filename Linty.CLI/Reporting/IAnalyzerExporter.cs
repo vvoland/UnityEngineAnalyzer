@@ -1,7 +1,6 @@
 ﻿using System;
-using System.IO;
 
-namespace UnityEngineAnalyzer.CLI.Reporting
+namespace Linty.CLI.Reporting
 {
     public interface IAnalyzerExporter
     {

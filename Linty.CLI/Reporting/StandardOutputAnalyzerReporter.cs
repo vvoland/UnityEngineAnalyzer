@@ -1,7 +1,7 @@
 ﻿using System;
-using static UnityEngineAnalyzer.CLI.Reporting.DiagnosticInfo;
+using static Linty.CLI.Reporting.DiagnosticInfo;
 
-namespace UnityEngineAnalyzer.CLI.Reporting
+namespace Linty.CLI.Reporting
 {
     public class StandardOutputAnalyzerReporter : AnalyzerExporter
     {

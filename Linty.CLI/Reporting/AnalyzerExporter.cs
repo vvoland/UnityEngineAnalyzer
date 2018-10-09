@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UnityEngineAnalyzer.CLI.Reporting
+namespace Linty.CLI.Reporting
 {
     public abstract class AnalyzerExporter : IAnalyzerExporter
     {
