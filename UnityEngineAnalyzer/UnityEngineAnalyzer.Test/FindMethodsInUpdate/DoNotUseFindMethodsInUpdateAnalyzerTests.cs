@@ -1,13 +1,8 @@
 ﻿using Linty.Analyzers;
 using Linty.Analyzers.FindMethodsInUpdate;
-using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
-using Microsoft.CodeAnalysis.Text;
 using NUnit.Framework;
 using RoslynNUnitLight;
-
-
-//using Microsoft.CodeAnalysis.Workspaces;
 
 namespace UnityEngineAnalyzer.Test.FindMethodsInUpdate
 {
@@ -15,7 +10,6 @@ namespace UnityEngineAnalyzer.Test.FindMethodsInUpdate
     sealed class DoNotUseFindMethodsInUpdateAnalyzerTests : AnalyzerTestFixture
     {
 
-        protected override string LanguageName => LanguageNames.CSharp;
         protected override DiagnosticAnalyzer CreateAnalyzer() => new DoNotUseFindMethodsInUpdateAnalyzer();
 
         [Test]
@@ -34,18 +28,8 @@ class C : MonoBehaviour
     }
 }";
 
-            Document document;
-            TextSpan span;
 
-            if (TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine,
-                out document, out span))
-            {
-                HasDiagnostic(document, span, DiagnosticIDs.DoNotUseFindMethodsInUpdate);
-            }
-            else
-            {
-                Assert.Fail("Could not load unit test code");
-            }
+            HasDiagnostic(code, DiagnosticIDs.DoNotUseFindMethodsInUpdate);
         }
 
         [Test]
@@ -61,11 +45,8 @@ class C : MonoBehaviour
         [|GameObject.Find("")|];
     }
 }";
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
 
-            NoDiagnostic(document, DiagnosticIDs.EmptyMonoBehaviourMethod);
+            NoDiagnostic(code, DiagnosticIDs.EmptyMonoBehaviourMethod);
         }
     }
 }

@@ -1,8 +1,6 @@
 ﻿using Linty.Analyzers;
 using Linty.Analyzers.CompareTag;
-using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
-using Microsoft.CodeAnalysis.Text;
 using NUnit.Framework;
 using RoslynNUnitLight;
 
@@ -11,7 +9,6 @@ namespace UnityEngineAnalyzer.Test.CompareTag
     [TestFixture]
     sealed class UseCompareTagAnalyzerTests : AnalyzerTestFixture
     {
-        protected override string LanguageName => LanguageNames.CSharp;
         protected override DiagnosticAnalyzer CreateAnalyzer() => new UseCompareTagAnalyzer();
 
         [Test]
@@ -28,11 +25,7 @@ class C : MonoBehaviour
     }
 }";
 
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            HasDiagnostic(document, span, DiagnosticIDs.UseCompareTag);
+            HasDiagnostic(code, DiagnosticIDs.UseCompareTag);
         }
 
         [Test]
@@ -49,11 +42,7 @@ class C : MonoBehaviour
     }
 }";
 
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            HasDiagnostic(document, span, DiagnosticIDs.UseCompareTag);
+            HasDiagnostic(code, DiagnosticIDs.UseCompareTag);
         }
 
         [Test]
@@ -73,11 +62,7 @@ class C : MonoBehaviour
     }
 }";
 
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            HasDiagnostic(document, span, DiagnosticIDs.UseCompareTag);
+            HasDiagnostic(code, DiagnosticIDs.UseCompareTag);
         }
 
         [Test]
@@ -94,11 +79,7 @@ class C : MonoBehaviour
     }
 }";
 
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            NoDiagnostic(document, DiagnosticIDs.UseCompareTag);
+            NoDiagnostic(code, DiagnosticIDs.UseCompareTag);
         }
     }
 }

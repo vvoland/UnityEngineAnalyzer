@@ -11,7 +11,6 @@ namespace UnityEngineAnalyzer.Test.Audio
     [TestFixture]
     sealed class AudioSourceAnalyzerTests : AnalyzerTestFixture
     {
-        protected override string LanguageName => LanguageNames.CSharp;
         protected override DiagnosticAnalyzer CreateAnalyzer() => new AudioSourceAnalyzer();
 
         [Test]
@@ -30,11 +29,7 @@ class C : MonoBehaviour
     }
 }";
 
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            HasDiagnostic(document, span, DiagnosticIDs.AudioSourceMuteUsesCPU);
+            HasDiagnostic(code, DiagnosticIDs.AudioSourceMuteUsesCPU);
         }
     }
 }

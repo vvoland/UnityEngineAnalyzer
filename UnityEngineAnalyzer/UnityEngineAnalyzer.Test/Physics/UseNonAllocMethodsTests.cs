@@ -1,8 +1,6 @@
 ﻿using Linty.Analyzers;
 using Linty.Analyzers.Physics;
-using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
-using Microsoft.CodeAnalysis.Text;
 using NUnit.Framework;
 using RoslynNUnitLight;
 
@@ -12,7 +10,6 @@ namespace UnityEngineAnalyzer.Test.Animator
     [TestFixture]
     sealed class UseNonAllocMethodsTests : AnalyzerTestFixture
     {
-        protected override string LanguageName => LanguageNames.CSharp;
         protected override DiagnosticAnalyzer CreateAnalyzer() => new UseNonAllocMethodsAnalyzer();
 
         [Test]
@@ -30,11 +27,7 @@ class C : MonoBehaviour
     }
 }";
 
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            HasDiagnostic(document, span, DiagnosticIDs.PhysicsUseNonAllocMethods);
+            HasDiagnostic(code, DiagnosticIDs.PhysicsUseNonAllocMethods);
         }
 
         [Test]
@@ -52,11 +45,7 @@ class C : MonoBehaviour
     }
 }";
 
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            HasDiagnostic(document, span, DiagnosticIDs.PhysicsUseNonAllocMethods);
+            HasDiagnostic(code, DiagnosticIDs.PhysicsUseNonAllocMethods);
         }
 
         [Test]
@@ -73,11 +62,7 @@ class C : MonoBehaviour
     }
 }";
 
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            HasDiagnostic(document, span, DiagnosticIDs.PhysicsUseNonAllocMethods);
+            HasDiagnostic(code, DiagnosticIDs.PhysicsUseNonAllocMethods);
         }
 
         [Test]
@@ -98,11 +83,7 @@ class C : MonoBehaviour
     }
 }";
 
-            Document document;
-            TextSpan span;
-            TestHelpers.TryGetDocumentAndSpanFromMarkup(code, LanguageName, MetadataReferenceHelper.UsingUnityEngine, out document, out span);
-
-            HasDiagnostic(document, span, DiagnosticIDs.PhysicsUseNonAllocMethods);
+            HasDiagnostic(code, DiagnosticIDs.PhysicsUseNonAllocMethods);
         }
     }
 }

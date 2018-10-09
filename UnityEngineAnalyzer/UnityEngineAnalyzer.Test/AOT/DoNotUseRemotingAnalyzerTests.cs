@@ -1,6 +1,5 @@
 ﻿using Linty.Analyzers;
 using Linty.Analyzers.AOT;
-using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 using NUnit.Framework;
 using RoslynNUnitLight;
@@ -10,7 +9,6 @@ namespace UnityEngineAnalyzer.Test.AOT
     [TestFixture]
     sealed class DoNotUseRemotingAnalyzerTests : AnalyzerTestFixture
     {
-        protected override string LanguageName => LanguageNames.CSharp;
         protected override DiagnosticAnalyzer CreateAnalyzer() => new DoNotUseRemotingAnalyzer();
 
         [Test]
