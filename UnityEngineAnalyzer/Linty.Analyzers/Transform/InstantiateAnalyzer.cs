@@ -15,8 +15,8 @@ namespace Linty.Analyzers.Transform
 
         public override void Initialize(AnalysisContext context)
         {
-            context.RegisterSyntaxNodeAction(AnalyzeAssigmentExpression, SyntaxKind.SimpleAssignmentExpression); //FIND ALL SIMPLE ASSIGMENT EXPRESSIONS
-            context.RegisterSyntaxNodeAction(AnalyzeLocalDeclarationStatement, SyntaxKind.LocalDeclarationStatement);//... OR DEFINING NEW LOCAL VARIABLE EXPRESSION
+            context.RegisterSyntaxNodeAction(AnalyzeAssigmentExpression, SyntaxKind.SimpleAssignmentExpression);
+            context.RegisterSyntaxNodeAction(AnalyzeLocalDeclarationStatement, SyntaxKind.LocalDeclarationStatement);
         }
 
         public void AnalyzeAssigmentExpression(SyntaxNodeAnalysisContext context)
@@ -68,12 +68,6 @@ namespace Linty.Analyzers.Transform
                 }
 
                 var containingClass = symbolInfo.Symbol.ContainingType;
-                var assigmentName = symbolInfo.Symbol.Name;
-
-                if (containingClass.ContainingNamespace.Name.Equals("UnityEngine") && containingClass.Name.Equals("Transform") && symbolInfo.Symbol.Name.Equals("SetParent"))
-                {
-                    var dataFlow = context.SemanticModel.AnalyzeDataFlow(method);
-                }
 
                 // check if the assigment is the one from UnityEngine.Object.Instantiate
                 if (containingClass.ContainingNamespace.Name.Equals("UnityEngine") && containingClass.Name.Equals("Object") && symbolInfo.Symbol.Name.Equals("Instantiate"))
@@ -88,15 +82,38 @@ namespace Linty.Analyzers.Transform
                         continue;
                     }
 
-                    //WITH THE context.Node goto parent Block. Search for all Invocations.
-                      //See if there is SetParent, and it has the same var name on .LEFT
-                      //And it is invoked AFTER Instantiate.
+                    var block = context.Node.Ancestors().OfType<MethodDeclarationSyntax>().First();
 
+                    foreach (var invocation in block.DescendantNodes().OfType<InvocationExpressionSyntax>())
+                    {
+                        SymbolInfo invocationSymbolnfo;
+                        if (!context.TryGetSymbolInfo(invocation.Expression, out invocationSymbolnfo))
+                        {
+                            continue;
+                        }
 
-                    //TODO SEE ALSO THAT THE Variable is not assigned again in the middle....
+                        if (invocationSymbolnfo.Symbol == null)
+                        {
+                            continue;
+                        }
 
-                    var diagnostic = Diagnostic.Create(DiagnosticDescriptors.InstantiateTakeParent, method.GetLocation(), containingClass.Name, method.ToString());
-                    context.ReportDiagnostic(diagnostic);
+                        if (invocation.FullSpan.Start < method.FullSpan.Start)
+                        {
+                            continue;
+                        }
+
+                        var childContainingClass = symbolInfo.Symbol.ContainingType;
+
+                        //TODO Check that the varName has not been assiged again after Instantiate and Before SetParent.
+                        if (childContainingClass.ContainingNamespace.Name.Equals("UnityEngine") && childContainingClass.Name.Equals("Object") && invocationSymbolnfo.Symbol.Name.Equals("SetParent"))
+                        {
+                            if (invocation.DescendantNodes().OfType<IdentifierNameSyntax>().First().Identifier.ToString() == varName)
+                            {
+                                var diagnostic = Diagnostic.Create(DiagnosticDescriptors.InstantiateTakeParent, method.GetLocation(), containingClass.Name, method.ToString());
+                                context.ReportDiagnostic(diagnostic);
+                            }
+                        }
+                    }
                 }
             }
         }

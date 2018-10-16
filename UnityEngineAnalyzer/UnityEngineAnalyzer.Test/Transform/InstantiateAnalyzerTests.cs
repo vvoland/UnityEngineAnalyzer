@@ -35,6 +35,32 @@ class C : MonoBehaviour
         }
 
         [Test]
+        public void IfParentIsSetRightAfterInstantiateRaiseWarning_Parent_Method_Block_Should_Be_Found()
+        {
+            const string code = @"
+using UnityEngine;
+
+class C : MonoBehaviour
+{
+    GameObject prefabObject;
+    GameObject newParent;
+    GameObject newGameObject;
+
+    void Update()
+    {
+        for (int i = 0; i < 1; i++) 
+        {
+            newGameObject = [|Instantiate(prefabObject, Vector3.zero, Quaternion.identity)|];
+        }
+
+        newGameObject.transform.SetParent(newParent.transform, false);
+    }
+}";
+
+            HasDiagnostic(code, DiagnosticIDs.InstantiateShouldTakeParentArgument);
+        }
+
+        [Test]
         public void IfParentIsSetRightAfterInstantiateRaiseWarningOldVariable()
         {
             const string code = @"
@@ -135,7 +161,7 @@ class C : MonoBehaviour
     void Update()
     {
         newGameobject.transform.SetParent(newParent.transform, false);
-        [|var newGameobject = Instantiate(prefabObject);|]
+        [|newGameobject = Instantiate(prefabObject);|]
     }
 }";
 
