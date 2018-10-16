@@ -14,7 +14,7 @@ namespace UnityEngineAnalyzer.Test.Transform
         protected override DiagnosticAnalyzer CreateAnalyzer() => new InstantiateAnalyzer();
 
         [Test]
-        public void IfParentIsSetRightAfterInstantiateRaiseWarningNewVariable()
+        public void If_Parent_Is_Set_Right_After_Instantiate_Raise_Warning_New_Field()
         {
             const string code = @"
 using UnityEngine;
@@ -35,7 +35,7 @@ class C : MonoBehaviour
         }
 
         [Test]
-        public void IfParentIsSetRightAfterInstantiateRaiseWarning_Parent_Method_Block_Should_Be_Found()
+        public void If_Parent_Is_Set_Right_After_Instantiate_Raise_Warning_When_Inside_Same_Parent_Method_Block()
         {
             const string code = @"
 using UnityEngine;
@@ -61,7 +61,7 @@ class C : MonoBehaviour
         }
 
         [Test]
-        public void IfParentIsSetRightAfterInstantiateRaiseWarningOldVariable()
+        public void If_Parent_Is_Set_Right_After_Instantiate_Raise_Warning_Defined_Field()
         {
             const string code = @"
 using UnityEngine;
@@ -83,7 +83,7 @@ class C : MonoBehaviour
         }
 
         [Test]
-        public void IfParentIsSetRightAfterInstantiateRaiseWarningOldVariableAsTransform()
+        public void If_Parent_Is_Set_Right_After_Instantiate_Raise_Warning_Defined_Field_As_Transform()
         {
             const string code = @"
 using UnityEngine;
@@ -126,7 +126,7 @@ class C : MonoBehaviour
         }
 
         [Test]
-        public void Instantiate_Should_Not_Throw_Warning_If_SetParent_Is_Not_Called()
+        public void Instantiate_Should_Not_Throw_Warning_If_SetParent_Is_Not_Called_On_Instantiated_Field()
         {
             const string code = @"
 using UnityEngine;
@@ -169,7 +169,7 @@ class C : MonoBehaviour
         }
 
         [Test]
-        public void Instantiate_Should_Not_Throw_Warning_If_SetParent_Is_Called_On_Different_Variable()
+        public void Instantiate_Should_Not_Throw_Warning_If_Variable_Is_ReAssigned()
         {
             const string code = @"
 using UnityEngine;
