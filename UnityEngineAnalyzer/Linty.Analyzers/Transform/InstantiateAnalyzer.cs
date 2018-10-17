@@ -88,7 +88,7 @@ namespace Linty.Analyzers.Transform
                     foreach (var assignmentExpression in block.DescendantNodes().OfType<AssignmentExpressionSyntax>())
                     {
                         var identifierNameSyntax = assignmentExpression.Left as IdentifierNameSyntax;
-                        if (identifierNameSyntax.Identifier.ToString() == varName)
+                        if (identifierNameSyntax?.Identifier.ToString() == varName)
                         {
                             reAssignSpan.Add(assignmentExpression.FullSpan.Start);
                         }
