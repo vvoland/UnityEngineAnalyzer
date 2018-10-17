@@ -84,6 +84,16 @@ namespace Linty.Analyzers.Transform
 
                     var block = context.Node.Ancestors().OfType<MethodDeclarationSyntax>().First();
 
+                    List<int> reAssignSpan = new List<int>();
+                    foreach (var assignmentExpression in block.DescendantNodes().OfType<AssignmentExpressionSyntax>())
+                    {
+                        var identifierNameSyntax = assignmentExpression.Left as IdentifierNameSyntax;
+                        if (identifierNameSyntax.Identifier.ToString() == varName)
+                        {
+                            reAssignSpan.Add(assignmentExpression.FullSpan.Start);
+                        }
+                    }
+
                     foreach (var invocation in block.DescendantNodes().OfType<InvocationExpressionSyntax>())
                     {
                         SymbolInfo invocationSymbolnfo;
@@ -104,9 +114,25 @@ namespace Linty.Analyzers.Transform
 
                         var childContainingClass = symbolInfo.Symbol.ContainingType;
 
-                        //TODO Check that the varName has not been assiged again after Instantiate and Before SetParent.
                         if (childContainingClass.ContainingNamespace.Name.Equals("UnityEngine") && childContainingClass.Name.Equals("Object") && invocationSymbolnfo.Symbol.Name.Equals("SetParent"))
                         {
+                            //Check that the Instantiated field is not reassigned before calling SetParent
+                            bool reAssignedField = false;
+                            foreach (var span in reAssignSpan)
+                            {
+                                if (span > method.FullSpan.Start && span < invocation.FullSpan.Start)
+                                {
+                                    reAssignedField = true;
+                                    break;
+                                }
+                            }
+
+                            if (reAssignedField)
+                            {
+                                continue;
+                            }
+
+                            //Check that the field that we Instantied calls SetParent & that way forces hiearchy to dirty it self
                             if (invocation.DescendantNodes().OfType<IdentifierNameSyntax>().First().Identifier.ToString() == varName)
                             {
                                 var diagnostic = Diagnostic.Create(DiagnosticDescriptors.InstantiateTakeParent, method.GetLocation(), containingClass.Name, method.ToString());

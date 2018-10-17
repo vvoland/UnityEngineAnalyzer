@@ -74,6 +74,7 @@ class C : MonoBehaviour
 
     void Update()
     {
+        newGameObject = null;
         newGameObject = [|Instantiate(prefabObject, Vector3.zero, Quaternion.identity)|];
         newGameObject.transform.SetParent(newParent.transform, false);
     }
@@ -181,7 +182,7 @@ class C : MonoBehaviour
 
     void Update()
     {
-        [|var newGameobject = Instantiate(prefabObject);|]
+        [|var newGameObject = Instantiate(prefabObject);|]
         newGameObject = prefabObject;
         newGameobject.transform.SetParent(newParent.transform, false);
     }
