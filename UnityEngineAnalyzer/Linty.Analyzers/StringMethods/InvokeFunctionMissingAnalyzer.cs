@@ -12,19 +12,9 @@ namespace Linty.Analyzers.StringMethods
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public class InvokeFunctionMissingAnalyzer : DiagnosticAnalyzer
     {
-        public static readonly DiagnosticDescriptor InvokeFunctionMissing = new DiagnosticDescriptor(
-              id: DiagnosticIDs.InvokeFunctionMissing,
-              title: new LocalizableResourceString(nameof(InvokeFunctionMissingResources.Title), InvokeFunctionMissingResources.ResourceManager, typeof(InvokeFunctionMissingResources)),
-              messageFormat: new LocalizableResourceString(nameof(InvokeFunctionMissingResources.MessageFormat), InvokeFunctionMissingResources.ResourceManager, typeof(InvokeFunctionMissingResources)),
-              category: DiagnosticCategories.Performance,
-              defaultSeverity: DiagnosticSeverity.Warning,
-              isEnabledByDefault: true,
-              description: new LocalizableResourceString(nameof(InvokeFunctionMissingResources.Description), InvokeFunctionMissingResources.ResourceManager, typeof(InvokeFunctionMissingResources))
-        );
-
+        public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(DiagnosticDescriptors.InvokeFunctionMissing);
         private static readonly ImmutableHashSet<string> InvokeMethods = ImmutableHashSet.Create("Invoke", "InvokeRepeating");
         private static readonly string InvokeMethodTypeName = "UnityEngine.MonoBehaviour";
-
 
         public override void Initialize(AnalysisContext context)
         {
@@ -63,19 +53,12 @@ namespace Linty.Analyzers.StringMethods
 
                     if (invokeEndPoint == null)
                     {
-                        var diagnostic = Diagnostic.Create(SupportedDiagnostics.First(), firstArgumentExpression.GetLocation(),
-                             methodName, invokedMethodName);
+                        var diagnostic = Diagnostic.Create(DiagnosticDescriptors.InvokeFunctionMissing, firstArgumentExpression.GetLocation(), methodName, invokedMethodName);
 
                         context.ReportDiagnostic(diagnostic);
                     }
                 }
-
-
-
             }
-
         }
-
-        public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(InvokeFunctionMissingAnalyzer.InvokeFunctionMissing);
     }
 }

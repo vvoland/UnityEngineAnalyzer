@@ -10,19 +10,10 @@ namespace Linty.Analyzers.StringMethods
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class DoNotUseStringMethodsAnalyzer : DiagnosticAnalyzer
     {
-        public static readonly DiagnosticDescriptor Descriptor = new DiagnosticDescriptor(
-            id: DiagnosticIDs.DoNotUseStringMethods,
-            title: new LocalizableResourceString(nameof(DoNotUseStringMethodsResources.Title), DoNotUseStringMethodsResources.ResourceManager, typeof(DoNotUseStringMethodsResources)),
-            messageFormat: new LocalizableResourceString(nameof(DoNotUseStringMethodsResources.MessageFormat), DoNotUseStringMethodsResources.ResourceManager, typeof(DoNotUseStringMethodsResources)),
-            category: DiagnosticCategories.StringMethods,
-            defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true,
-            description: new LocalizableResourceString(nameof(DoNotUseStringMethodsResources.Description), DoNotUseStringMethodsResources.ResourceManager, typeof(DoNotUseStringMethodsResources)));
-
         private static readonly ImmutableHashSet<string> StringMethods = ImmutableHashSet.Create("SendMessage", "SendMessageUpwards", "BroadcastMessage");
         private static readonly ImmutableHashSet<string> Namespaces = ImmutableHashSet.Create("UnityEngine.Component", "UnityEngine.GameObject", "UnityEngine.MonoBehaviour");
 
-        public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(DoNotUseStringMethodsAnalyzer.Descriptor);
+        public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(DiagnosticDescriptors.DoNotUseStringMethods);
 
         public override void Initialize(AnalysisContext context)
         {
@@ -50,7 +41,7 @@ namespace Linty.Analyzers.StringMethods
 
             if (Namespaces.Any(ns => methodSymbol?.ToString().StartsWith(ns) ?? false))
             {
-                var diagnostic = Diagnostic.Create(DoNotUseStringMethodsAnalyzer.Descriptor, invocation.GetLocation());
+                var diagnostic = Diagnostic.Create(DiagnosticDescriptors.DoNotUseStringMethods, invocation.GetLocation());
                 context.ReportDiagnostic(diagnostic);
             }
         }

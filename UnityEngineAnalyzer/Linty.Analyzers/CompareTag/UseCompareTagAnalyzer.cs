@@ -13,19 +13,9 @@ namespace Linty.Analyzers.CompareTag
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class UseCompareTagAnalyzer : DiagnosticAnalyzer
     {
-        private static readonly DiagnosticDescriptor Descriptor = new DiagnosticDescriptor(
-            id: DiagnosticIDs.UseCompareTag,
-            title: new LocalizableResourceString(nameof(UseCompareTagResources.Title), UseCompareTagResources.ResourceManager, typeof(UseCompareTagResources)),
-            messageFormat: new LocalizableResourceString(nameof(UseCompareTagResources.MessageFormat), UseCompareTagResources.ResourceManager, typeof(UseCompareTagResources)),
-            category: DiagnosticCategories.GC,
-            defaultSeverity: DiagnosticSeverity.Warning,
-            isEnabledByDefault: true,
-            description: new LocalizableResourceString(nameof(UseCompareTagResources.Description), UseCompareTagResources.ResourceManager, typeof(UseCompareTagResources)));
-
-
         private static readonly ImmutableHashSet<string> ContainingSymbols = ImmutableHashSet.Create("UnityEngine.Component", "UnityEngine.GameObject");
 
-        public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(UseCompareTagAnalyzer.Descriptor);
+        public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(DiagnosticDescriptors.UseCompareTag);
         public override void Initialize(AnalysisContext context)
         {
             context.RegisterSyntaxNodeAction(AnalyzeInvocationExpressionNode, SyntaxKind.InvocationExpression);
@@ -80,7 +70,7 @@ namespace Linty.Analyzers.CompareTag
 
         private static void ReportDiagnostic(SyntaxNodeAnalysisContext context, Location location)
         {
-            var diagnostic = Diagnostic.Create(UseCompareTagAnalyzer.Descriptor, location);
+            var diagnostic = Diagnostic.Create(DiagnosticDescriptors.UseCompareTag, location);
             context.ReportDiagnostic(diagnostic);
         }
     }
