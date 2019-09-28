@@ -64,7 +64,7 @@ class C : MonoBehaviour
 
     void Start()
     {
-        [|material.SetVector(""_WaveAndDistance"", Vector3.one)|];
+        [|material.SetVector(""_WaveAndDistance"", UnityEngine.Vector3.one)|];
     }
 }";
 
