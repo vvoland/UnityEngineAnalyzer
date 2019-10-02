@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.Diagnostics;
 using NUnit.Framework;
 using RoslynNUnitLight;
 
-namespace UnityEngineAnalyzer.Test.Animator
+namespace UnityEngineAnalyzer.Test.Physics
 {
 
     [TestFixture]

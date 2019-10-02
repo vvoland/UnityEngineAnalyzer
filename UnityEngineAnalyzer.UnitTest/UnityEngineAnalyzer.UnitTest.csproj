@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="RoslynNUnitLight\License.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="RoslynNUnitLight\License.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="2.9.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="2.9.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="2.9.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="2.9.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="3.0.0" />
+    <PackageReference Include="nunit" Version="3.12.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UnityEngineAnalyzer\Linty.Analyzers\Linty.Analyzers.csproj" />
+  </ItemGroup>
+
+</Project>
