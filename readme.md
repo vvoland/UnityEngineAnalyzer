@@ -8,25 +8,25 @@ Analyzers
 
 | Analyzer                               | Name                       | Gategory       | Severity    |
 | -------------------------------------- | -------------------------- | ---------------| ------------|
-| [UEA0001](Documents/analyzers/UEA0001) |DoNotUseOnGUI               | GC             |Info         |
-| [UEA0002](Documents/analyzers/UEA0002) |DoNotUseStringMethods       | GC             |Info         |
-| [UEA0003](Documents/analyzers/UEA0003) |EmptyMonoBehaviourMethod    | Miscellaneous  |Warning      |
-| [UEA0004](Documents/analyzers/UEA0004) |UseCompareTag               | GC             |Warning      |
-| [UEA0005](Documents/analyzers/UEA0005) |DoNotUseFindMethodsInUpdate | Performance    |Warning      |
-| [UEA0006](Documents/analyzers/UEA0006) |DoNotUseCoroutines          | GC             |Info         |
-| [UEA0007](Documents/analyzers/UEA0007) |DoNotUseForEachInUpdate     | Performance    |Warning      |
-| [UEA0008](Documents/analyzers/UEA0008) |UnsealedDerivedClass        | Performance    |Warning      |
-| [UEA0009](Documents/analyzers/UEA0009) |InvokeFunctionMissing       | Performance    |Warning      |
-| [UEA0010](Documents/analyzers/UEA0010) |DoNotUseStateNameInAnimator | Performance    |Warning      |
-| [UEA0011](Documents/analyzers/UEA0011) |DoNotUseStringPropertyNames | Performance    |Warning      |
-| [UEA0012](Documents/analyzers/UEA0012) |CameraMainIsSlow            | GC             |Warning      |
-| [UEA0013](Documents/analyzers/UEA0013) |UseNonAllocMethods          | GC             |Warning      |
-| [UEA0014](Documents/analyzers/UEA0014) |AudioSourceMuteUsesCPU      | Performance    |Info         |
-| [UEA0015](Documents/analyzers/UEA0015) |InstantiateTakeParent       | Performance    |Warning      |
+| [UEA0001](Documents/analyzers/UEA0001.md) |DoNotUseOnGUI               | GC             |Info         |
+| [UEA0002](Documents/analyzers/UEA0002.md) |DoNotUseStringMethods       | GC             |Info         |
+| [UEA0003](Documents/analyzers/UEA0003.md) |EmptyMonoBehaviourMethod    | Miscellaneous  |Warning      |
+| [UEA0004](Documents/analyzers/UEA0004.md) |UseCompareTag               | GC             |Warning      |
+| [UEA0005](Documents/analyzers/UEA0005.md) |DoNotUseFindMethodsInUpdate | Performance    |Warning      |
+| [UEA0006](Documents/analyzers/UEA0006.md) |DoNotUseCoroutines          | GC             |Info         |
+| [UEA0007](Documents/analyzers/UEA0007.md) |DoNotUseForEachInUpdate     | Performance    |Warning      |
+| [UEA0008](Documents/analyzers/UEA0008.md) |UnsealedDerivedClass        | Performance    |Warning      |
+| [UEA0009](Documents/analyzers/UEA0009.md) |InvokeFunctionMissing       | Performance    |Warning      |
+| [UEA0010](Documents/analyzers/UEA0010.md) |DoNotUseStateNameInAnimator | Performance    |Warning      |
+| [UEA0011](Documents/analyzers/UEA0011.md) |DoNotUseStringPropertyNames | Performance    |Warning      |
+| [UEA0012](Documents/analyzers/UEA0012.md) |CameraMainIsSlow            | GC             |Warning      |
+| [UEA0013](Documents/analyzers/UEA0013.md) |UseNonAllocMethods          | GC             |Warning      |
+| [UEA0014](Documents/analyzers/UEA0014.md) |AudioSourceMuteUsesCPU      | Performance    |Info         |
+| [UEA0015](Documents/analyzers/UEA0015.md) |InstantiateTakeParent       | Performance    |Warning      |
 | -------------------------------------- |----------------------------|--------------- | ----------- |
-| [AOT0001](Documents/analyzers/AOT0001) |DoNotUseRemoting            | AOT            |Info         |
-| [AOT0002](Documents/analyzers/AOT0002) |DoNotUseReflectionEmit      | AOT            |Info         |
-| [AOT0003](Documents/analyzers/AOT0003) |TypeGetType                 | AOT            |Info         |
+| [AOT0001](Documents/analyzers/AOT0001.md) |DoNotUseRemoting            | AOT            |Info         |
+| [AOT0002](Documents/analyzers/AOT0002.md) |DoNotUseReflectionEmit      | AOT            |Info         |
+| [AOT0003](Documents/analyzers/AOT0003.md) |TypeGetType                 | AOT            |Info         |
 
 Building CLI executable
 ---------------------
