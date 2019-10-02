@@ -3,14 +3,23 @@ using Microsoft.CodeAnalysis;
 using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
-
+using System.Reflection;
+using Microsoft.Extensions.DependencyModel;
 
 namespace UnityEngineAnalyzer.Test
 {
     static class MetadataReferenceHelper
     {
-        public static readonly ImmutableList<MetadataReference> UsingUnityEngine =
-            ImmutableList.Create(GetUnityMetadataReference(), GetSystem(), GetSystemCore());
+        public static readonly ImmutableList<MetadataReference> UsingUnityEngine = getRequiredMetadataReferences();
+
+        private static ImmutableList<MetadataReference> getRequiredMetadataReferences()
+        {
+            var builder = ImmutableList.CreateBuilder<MetadataReference>();
+            builder.Add(GetUnityMetadataReference());
+            builder.AddRange(GetSystemString());
+
+            return builder.ToImmutable();
+        }
 
         private static MetadataReference GetUnityMetadataReference()
         {
@@ -33,16 +42,14 @@ namespace UnityEngineAnalyzer.Test
             throw new FileNotFoundException("Unable to locate UnityEngine.dll");
         }
 
-        private static MetadataReference GetSystem()
+        private static MetadataReference[] GetSystemString()
         {
-            var assemblyPath = typeof(object).Assembly.Location;
-            return MetadataReference.CreateFromFile(assemblyPath);
-        }
-
-        private static MetadataReference GetSystemCore()
-        {
-            var assemblyPath = typeof(Enumerable).Assembly.Location;
-            return MetadataReference.CreateFromFile(assemblyPath);
+            return
+                DependencyContext.Default.CompileLibraries
+                .First(cl => cl.Name == "Microsoft.NETCore.App")
+                .ResolveReferencePaths()
+                .Select(asm => MetadataReference.CreateFromFile(asm))
+                .ToArray();
         }
     }
 }
