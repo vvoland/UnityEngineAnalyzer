@@ -13,7 +13,7 @@ namespace Linty.Analyzers
         public const string UnsealedDerivedClass = "UEA0008";
         public const string InvokeFunctionMissing = "UEA0009";
         public const string DoNotUseStateNameInAnimator = "UEA0010";
-        public const string DoNotUseStringPropertyNamesInMaterial = "UEA0011";
+        public const string DoNotUseStringPropertyNames = "UEA0011";
         public const string CameraMainIsSlow = "UEA0012";
         public const string PhysicsUseNonAllocMethods = "UEA0013";
         public const string AudioSourceMuteUsesCPU = "UEA0014";

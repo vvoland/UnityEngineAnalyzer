@@ -63,7 +63,7 @@ namespace Linty.Analyzers
             UnsealedDerivedClass = CreateDiagnosticDescriptor<UnsealedDerivedClassResources>(DiagnosticIDs.UnsealedDerivedClass, DiagnosticCategories.Performance, DiagnosticSeverity.Warning);
             InvokeFunctionMissing = CreateDiagnosticDescriptor<InvokeFunctionMissingResources>(DiagnosticIDs.InvokeFunctionMissing, DiagnosticCategories.Performance, DiagnosticSeverity.Warning);
             DoNotUseStateName = CreateDiagnosticDescriptor<DoNotUseStateNameResource>(DiagnosticIDs.DoNotUseStateNameInAnimator, DiagnosticCategories.Performance, DiagnosticSeverity.Warning);
-            DoNotUseStringPropertyNames = CreateDiagnosticDescriptor<DoNotUseStringPropertyNamesResource>(DiagnosticIDs.DoNotUseStringPropertyNamesInMaterial, DiagnosticCategories.Performance, DiagnosticSeverity.Warning);
+            DoNotUseStringPropertyNames = CreateDiagnosticDescriptor<DoNotUseStringPropertyNamesResource>(DiagnosticIDs.DoNotUseStringPropertyNames, DiagnosticCategories.Performance, DiagnosticSeverity.Warning);
             InstantiateTakeParent = CreateDiagnosticDescriptor<InstantiateResource>(DiagnosticIDs.InstantiateShouldTakeParentArgument, DiagnosticCategories.Performance, DiagnosticSeverity.Warning, UnityVersion.UNITY_5_4);
 
             //Miscellaneous

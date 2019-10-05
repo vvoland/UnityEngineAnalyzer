@@ -83,6 +83,11 @@ namespace Linty.Analyzers
             "Start"
             ).Union(UpdateMethodNames);
 
+        public MonoBehaviourInfo()
+        {
+
+        }
+
         public MonoBehaviourInfo(SyntaxNodeAnalysisContext analysisContext)
         {
             _classDeclaration = analysisContext.Node as ClassDeclarationSyntax;
@@ -150,6 +155,35 @@ namespace Linty.Analyzers
 
             return IsMonoBehavior(baseClass); //determine if the BaseClass extends mono behavior
 
+        }
+
+        public void IsStringMethod(DiagnosticDescriptor diagnosticDescriptor, string className, ImmutableHashSet<string> methodList, SyntaxNodeAnalysisContext context)
+        {
+            var invocation = context.Node as InvocationExpressionSyntax;
+            if (invocation == null)
+            {
+                return;
+            }
+
+            var name = invocation.MethodName();
+
+            // check if any of the methods are used
+            if (!methodList.Contains(name)) { return; }
+
+            var symbolInfo = context.SemanticModel.GetSymbolInfo(invocation);
+            var methodSymbol = symbolInfo.Symbol as IMethodSymbol;
+
+            var containingClass = methodSymbol.ContainingType;
+
+            // check if the method is the one from UnityEngine.Material
+            if (containingClass.ContainingNamespace.Name.Equals("UnityEngine") && containingClass.Name.Equals(className))
+            {
+                if (methodSymbol.Parameters[0].Type.MetadataName == "String")
+                {
+                    var diagnostic = Diagnostic.Create(diagnosticDescriptor, invocation.GetLocation(), containingClass.Name, methodSymbol.Name);
+                    context.ReportDiagnostic(diagnostic);
+                }
+            }
         }
     }
 }

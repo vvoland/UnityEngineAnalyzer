@@ -30,7 +30,7 @@ class C : MonoBehaviour
     }
 }";
 
-            HasDiagnostic(code, DiagnosticIDs.DoNotUseStringPropertyNamesInMaterial);
+            HasDiagnostic(code, DiagnosticIDs.DoNotUseStringPropertyNames);
         }
 
         [Test]
@@ -49,7 +49,7 @@ class C : MonoBehaviour
     }
 }";
 
-            HasDiagnostic(code, DiagnosticIDs.DoNotUseStringPropertyNamesInMaterial);
+            HasDiagnostic(code, DiagnosticIDs.DoNotUseStringPropertyNames);
         }
 
         [Test]
@@ -68,7 +68,7 @@ class C : MonoBehaviour
     }
 }";
 
-            HasDiagnostic(code, DiagnosticIDs.DoNotUseStringPropertyNamesInMaterial);
+            HasDiagnostic(code, DiagnosticIDs.DoNotUseStringPropertyNames);
         }
     }
 }
