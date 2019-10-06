@@ -53,11 +53,12 @@ using UnityEngine;
 
 class C : MonoBehaviour
 {
-    private float distance = 5.0f;
+    public Transform other;
+    private float farDistance = 5.0f;
 
     void Update()
     {
-        if ([|transform.position.magnitude|] > distance) 
+        if ([|(other.position - transform.position).magnitude|] > farDistance) 
         { 
              //OPTIMIZE THIS CALL BY USING sqrMagnitude
         }
