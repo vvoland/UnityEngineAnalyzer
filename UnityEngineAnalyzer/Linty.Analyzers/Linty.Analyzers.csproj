@@ -74,6 +74,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Update="Vector\VectorAnalyzerResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>VectorAnalyzerResource.resx</DependentUpon>
+    </Compile>
     <Compile Update="OnGUI\DoNotUseOnGUIResources.Designer.cs">
       <DependentUpon>DoNotUseOnGUIResources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
@@ -154,6 +159,10 @@
     <EmbeddedResource Update="Material\DoNotUseStringPropertyNamesResource.resx">
       <LastGenOutput>DoNotUseStringPropertyNamesResource.Designer.cs</LastGenOutput>
       <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Vector\VectorAnalyzerResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>VectorAnalyzerResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="OnGUI\DoNotUseOnGUIResources.resx">
       <LastGenOutput>DoNotUseOnGUIResources.Designer.cs</LastGenOutput>

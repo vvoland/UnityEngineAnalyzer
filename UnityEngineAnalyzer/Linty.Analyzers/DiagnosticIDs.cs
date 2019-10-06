@@ -18,6 +18,7 @@ namespace Linty.Analyzers
         public const string PhysicsUseNonAllocMethods = "UEA0013";
         public const string AudioSourceMuteUsesCPU = "UEA0014";
         public const string InstantiateShouldTakeParentArgument = "UEA0015";
+        public const string VectorMagnitudeIsSlow = "UEA0016";
 
         //NOTES: These should probably be on their own analyzer - as they are not specific to Unity
         public const string DoNotUseRemoting = "AOT0001";

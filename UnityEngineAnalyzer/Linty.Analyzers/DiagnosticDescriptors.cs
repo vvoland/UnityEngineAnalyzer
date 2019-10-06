@@ -16,6 +16,7 @@ using Linty.Analyzers.OnGUI;
 using Linty.Analyzers.Physics;
 using Linty.Analyzers.StringMethods;
 using Linty.Analyzers.Transform;
+using Linty.Analyzers.Vector;
 using Microsoft.CodeAnalysis;
 using UnityEngineAnalyzer;
 
@@ -42,6 +43,7 @@ namespace Linty.Analyzers
         public static readonly DiagnosticDescriptor CameraMainIsSlow;
         public static readonly DiagnosticDescriptor AudioSourceMuteUsesCPU;
         public static readonly DiagnosticDescriptor InstantiateTakeParent;
+        public static readonly DiagnosticDescriptor VectorMagnitudeIsSlow;
 
         static DiagnosticDescriptors()
         {
@@ -65,6 +67,7 @@ namespace Linty.Analyzers
             DoNotUseStateName = CreateDiagnosticDescriptor<DoNotUseStateNameResource>(DiagnosticIDs.DoNotUseStateNameInAnimator, DiagnosticCategories.Performance, DiagnosticSeverity.Warning);
             DoNotUseStringPropertyNames = CreateDiagnosticDescriptor<DoNotUseStringPropertyNamesResource>(DiagnosticIDs.DoNotUseStringPropertyNamesInMaterial, DiagnosticCategories.Performance, DiagnosticSeverity.Warning);
             InstantiateTakeParent = CreateDiagnosticDescriptor<InstantiateResource>(DiagnosticIDs.InstantiateShouldTakeParentArgument, DiagnosticCategories.Performance, DiagnosticSeverity.Warning, UnityVersion.UNITY_5_4);
+            VectorMagnitudeIsSlow = CreateDiagnosticDescriptor<VectorAnalyzerResource>(DiagnosticIDs.VectorMagnitudeIsSlow, DiagnosticCategories.Performance, DiagnosticSeverity.Info);
 
             //Miscellaneous
             EmptyMonoBehaviourMethod = CreateDiagnosticDescriptor<EmptyMonoBehaviourMethodsResources>(DiagnosticIDs.EmptyMonoBehaviourMethod, DiagnosticCategories.Miscellaneous, DiagnosticSeverity.Warning);

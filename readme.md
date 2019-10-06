@@ -23,7 +23,8 @@ Analyzers
 | [UEA0013](Documents/analyzers/UEA0013.md) |UseNonAllocMethods          | GC             |Warning      |
 | [UEA0014](Documents/analyzers/UEA0014.md) |AudioSourceMuteUsesCPU      | Performance    |Info         |
 | [UEA0015](Documents/analyzers/UEA0015.md) |InstantiateTakeParent       | Performance    |Warning      |
-| -------------------------------------- |----------------------------|--------------- | ----------- |
+| [UEA0015](Documents/analyzers/UEA0016.md) |VectorMagnitudeIsSlow       | Performance    |Info         |
+| ----------------------------------------- |----------------------------|--------------- | ----------- |
 | [AOT0001](Documents/analyzers/AOT0001.md) |DoNotUseRemoting            | AOT            |Info         |
 | [AOT0002](Documents/analyzers/AOT0002.md) |DoNotUseReflectionEmit      | AOT            |Info         |
 | [AOT0003](Documents/analyzers/AOT0003.md) |TypeGetType                 | AOT            |Info         |
