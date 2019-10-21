@@ -72,6 +72,20 @@ Visual Studio Integration
 
 In Visual Studio 2017, go to `Tools > Nuget Package Manager > Manage Nuget Packages for Solution...`. Search for and install `UnityEngineAnalyzer`
 
+
+JetBrains Rider Integration
+-------------------------
+
+1. Commandline: `nuget install UnityEngineAnalyzer`
+2. Add `Assets/csc.rsp` with the following content:
+```
+-a:"full_or_relative_path_to_UnityEngineAnalyzer.dll"
+-ruleset:"full_or_relative_path_to_rules.ruleset"
+```
+3. You may need to regenerate csproj files in Unity
+
+> Applies to Unity 2019.2+ with Rider package 1.1.3+. Approach for older versions [#27](https://github.com/vad710/UnityEngineAnalyzer/issues/27)
+
 Configuration
 -------------
 
