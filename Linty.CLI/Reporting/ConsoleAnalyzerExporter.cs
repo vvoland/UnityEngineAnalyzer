@@ -15,8 +15,11 @@ namespace Linty.CLI.Reporting
             Console.WriteLine("Console Export Finished ({0})", duration);
             Console.ResetColor();
 
-            Console.WriteLine("Press any key to exit");
-            Console.ReadKey();
+            if (!Console.IsOutputRedirected)
+            {
+                Console.WriteLine("Press any key to exit");
+                Console.ReadKey();
+            }
         }
 
         public override void InitializeExporter(Options options)
